@@ -1,0 +1,22 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Resume | Mohammad Abu Huzaifa"
+  description="Resume and downloadable CV for Mohammad Abu Huzaifa."
+>
+  <h1 class="text-3xl font-semibold tracking-tight">Resume</h1>
+  <p class="mt-2 text-slate-300">
+    Download: <a class="text-sky-400 hover:underline" href="/resume.pdf" target="_blank">resume.pdf</a>
+  </p>
+
+  <div class="mt-6 rounded-xl border border-white/10 overflow-hidden">
+    <iframe
+      src="/resume.pdf"
+      class="w-full"
+      style="height: 80vh;"
+      title="Resume PDF"
+    ></iframe>
+  </div>
+</Layout>

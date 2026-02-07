@@ -1,23 +1,56 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+import "../styles/global.css";
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+const {
+  title = "Mohammad Abu Huzaifa | Data Analyst",
+  description = "Data Analyst portfolio: dashboards, analytics, and data-driven systems.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  </head>
+
+  <body class="min-h-full bg-slate-950 text-slate-100">
+    <header class="border-b border-white/10">
+      <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
+        <a href="/" class="font-semibold tracking-tight">
+          Mohammad Abu Huzaifa
+          <span class="text-sky-400">.</span>
+        </a>
+
+        <nav class="flex gap-5 text-sm text-slate-300">
+          <a class="hover:text-white" href="/">Home</a>
+          <a class="hover:text-white" href="/projects">Projects</a>
+          <a class="hover:text-white" href="/about">About</a>
+          <a class="hover:text-white" href="/resume">Resume</a>
+          <a class="hover:text-white" href="/contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-6xl px-4 py-10">
+      <slot />
+    </main>
+
+    <footer class="border-t border-white/10">
+      <div class="mx-auto max-w-6xl px-4 py-6 text-sm text-slate-400 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <p>© {new Date().getFullYear()} Mohammad Abu Huzaifa</p>
+        <div class="flex gap-4">
+          <a class="hover:text-white" href="mailto:huzaifanafiz6@gmail.com">Email</a>
+          <a class="hover:text-white" href="https://www.linkedin.com/in/mohammad-abu-huzaifa-b98314279/" target="_blank">LinkedIn</a>
+          <a class="hover:text-white" href="https://github.com/HUZAIFA1610" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
