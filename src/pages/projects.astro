@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { projects } from "../data/projects";
 ---
 
 <Layout
@@ -8,39 +9,37 @@ import Layout from "../layouts/Layout.astro";
 >
   <h1 class="text-3xl font-semibold tracking-tight">Projects</h1>
   <p class="mt-2 text-slate-300 max-w-2xl">
-    A curated selection of analytics and dashboard projects with clear problem framing, approach, and outcomes.
+    Curated projects with clear problem framing, approach, and measurable outcomes.
   </p>
 
   <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-    <a class="rounded-xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition" href="https://github.com/HUZAIFA1610/Water-Quality-Prediction-Maintenance-Service" target="_blank">
-      <div class="text-sm text-slate-400">Featured</div>
-      <div class="mt-1 font-semibold">Water Quality Prediction & Maintenance</div>
-      <div class="mt-2 text-sm text-slate-300">
-        Predictive analytics + risk alerts for maintenance scheduling.
-      </div>
-      <div class="mt-4 text-sm text-sky-400">View on GitHub →</div>
-    </a>
+    {projects.map((p) => (
+      <a
+        class="group rounded-xl border border-white/10 bg-white/5 overflow-hidden hover:bg-white/10 transition"
+        href={p.repoUrl}
+        target="_blank"
+      >
+        <div class="aspect-[16/9] bg-black/30 overflow-hidden">
+          <img
+            src={p.coverImage}
+            alt={`${p.title} cover`}
+            class="h-full w-full object-cover opacity-90 group-hover:opacity-100 transition"
+            loading="lazy"
+          />
+        </div>
 
-    <a class="rounded-xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition" href="https://github.com/HUZAIFA1610/Ecommerce-Sales-Dashboard" target="_blank">
-      <div class="text-sm text-slate-400">Dashboard</div>
-      <div class="mt-1 font-semibold">E-commerce Sales Dashboard</div>
-      <div class="mt-2 text-sm text-slate-300">
-        Sales trends, category performance, KPIs (Power BI).
-      </div>
-      <div class="mt-4 text-sm text-sky-400">View on GitHub →</div>
-    </a>
+        <div class="p-5">
+          <div class="text-xs text-slate-400">{p.category} • {p.dataset}</div>
+          <div class="mt-1 font-semibold">{p.title}</div>
+          <div class="mt-2 text-sm text-slate-300">{p.oneLiner}</div>
 
-    <a class="rounded-xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition" href="https://github.com/HUZAIFA1610/Uber-Data-Analysis---R" target="_blank">
-      <div class="text-sm text-slate-400">Analysis</div>
-      <div class="mt-1 font-semibold">Uber Trip Data Analysis (2014)</div>
-      <div class="mt-2 text-sm text-slate-300">
-        Patterns and trends across trips over time (R).
-      </div>
-      <div class="mt-4 text-sm text-sky-400">View on GitHub →</div>
-    </a>
+          <ul class="mt-4 space-y-1 text-sm text-slate-300">
+            {p.metrics.slice(0, 2).map((m) => (<li class="list-disc ml-5">{m}</li>))}
+          </ul>
+
+          <div class="mt-4 text-sm text-sky-400">View on GitHub →</div>
+        </div>
+      </a>
+    ))}
   </div>
-
-  <p class="mt-8 text-sm text-slate-400">
-    Next: we’ll add your full project list with filters (Dashboard / Analysis / System) and consistent “case-study” layout.
-  </p>
 </Layout>
