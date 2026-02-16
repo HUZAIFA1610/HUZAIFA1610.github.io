@@ -51,6 +51,7 @@ const featured = projects.filter((p) => p.featured);
               alt={`${p.title} cover`}
               class="h-full w-full object-cover opacity-90 group-hover:opacity-100 transition"
               loading="lazy"
+              onerror="this.onerror=null;this.src='/images/placeholder.svg';"
             />
           </div>
           <div class="p-5">

@@ -40,6 +40,7 @@ const categories = ["All", ...Array.from(new Set(projects.map((p) => p.category)
             alt={`${p.title} cover`}
             class="h-full w-full object-cover opacity-90"
             loading="lazy"
+            onerror="this.onerror=null;this.src='/images/placeholder.svg';"
           />
         </div>
 

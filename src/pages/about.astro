@@ -4,7 +4,7 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout
   title="About | Mohammad Abu Huzaifa"
-  description="About Mohammad Abu Huzaifa — Data Analyst focused on dashboards, insights, and decision support."
+  description="About Mohammad Abu Huzaifa — Data Analyst focused on BI dashboards, predictive insights, and decision support."
 >
   <h1 class="text-3xl font-semibold tracking-tight">About</h1>
 
@@ -12,24 +12,57 @@ import Layout from "../layouts/Layout.astro";
     <section class="lg:col-span-2">
       <h2 class="text-lg font-semibold">Profile</h2>
       <p class="mt-2 text-slate-300 leading-relaxed">
-        I’m a Data Analyst focused on turning raw data into clear insights, dashboards, and decision support.
-        I work across analysis, reporting, and data-driven systems—bridging business needs with technical execution.
+        I’m a Data Analyst focused on converting large, complex datasets into clear insights and decision support.
+        My work spans BI dashboards, exploratory analysis, and deployable analytics workflows—bridging stakeholder needs
+        with technical execution.
       </p>
 
-      <h2 class="mt-6 text-lg font-semibold">Strengths</h2>
+      <h2 class="mt-6 text-lg font-semibold">What I deliver</h2>
       <ul class="mt-2 grid gap-2 text-slate-300 list-disc pl-5">
-        <li>Dashboarding & KPI storytelling (Power BI)</li>
-        <li>EDA, trend analysis, and reporting (Python / R)</li>
-        <li>Building practical data tools (APIs / lightweight apps)</li>
+        <li><span class="font-medium text-slate-100">BI dashboards</span> with KPI storytelling (Power BI, DAX, MySQL)</li>
+        <li><span class="font-medium text-slate-100">Data analysis</span> for trends, segmentation, and reporting (Python/R)</li>
+        <li><span class="font-medium text-slate-100">Decision-support systems</span> (APIs + lightweight interfaces) for real operations</li>
       </ul>
+
+      <h2 class="mt-6 text-lg font-semibold">Featured work</h2>
+      <ul class="mt-2 grid gap-2 text-slate-300 list-disc pl-5">
+        <li><a class="text-sky-400 hover:underline" href="/projects/water-quality">AI-Driven Water Quality Monitoring & Predictive Maintenance</a> — 2.82M records + explainable risk tiers</li>
+        <li><a class="text-sky-400 hover:underline" href="/projects/fraud-detection">Deep Learning Fraud Detection</a> — threshold-driven decision support</li>
+        <li><a class="text-sky-400 hover:underline" href="/projects/fusion-bikes-bi">Fusion Bikes BI</a> — 10M rows BI pipeline + dashboards</li>
+      </ul>
+
+      <h2 class="mt-6 text-lg font-semibold">Leadership & community</h2>
+      <ul class="mt-2 grid gap-2 text-slate-300 list-disc pl-5">
+        <li>Hosted a Bangladeshi Cultural Night in Malaysia (≈1000 attendees)</li>
+        <li>Launched an Inter-University Futsal Tournament in Kuala Lumpur (16 teams)</li>
+        <li>Organized an Iftar program (≈100 attendees)</li>
+        <li>Vice President — APU Bangladesh Society</li>
+        <li>Sports Secretary — Bangladesh Student Organisation of Malaysia</li>
+      </ul>
+
+      <div class="mt-8 flex gap-3">
+        <a class="rounded-lg bg-sky-400 text-slate-950 px-4 py-2 text-sm font-semibold hover:opacity-90" href="/projects">
+          View Projects
+        </a>
+        <a class="rounded-lg border border-white/10 px-4 py-2 text-sm text-slate-100 hover:bg-white/5" href="/contact">
+          Contact
+        </a>
+      </div>
     </section>
 
-    <aside class="rounded-xl border border-white/10 bg-white/5 p-5">
+    <aside class="rounded-xl border border-white/10 bg-white/5 p-5 h-fit">
       <h2 class="text-lg font-semibold">Quick facts</h2>
       <div class="mt-3 text-sm text-slate-300 space-y-2">
         <p><span class="text-slate-400">Role:</span> Data Analyst</p>
+        <p><span class="text-slate-400">Degree:</span> BSc Computer Science (Data Analytics)</p>
         <p><span class="text-slate-400">Location:</span> Malaysia</p>
-        <p><span class="text-slate-400">Email:</span> huzaifanafiz6@gmail.com</p>
+      </div>
+
+      <h2 class="mt-6 text-lg font-semibold">Core tools</h2>
+      <div class="mt-3 flex flex-wrap gap-2">
+        {["Python", "Power BI", "MySQL", "R", "FastAPI", "Streamlit", "Excel"].map((t) => (
+          <span class="text-xs rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-300">{t}</span>
+        ))}
       </div>
     </aside>
   </div>

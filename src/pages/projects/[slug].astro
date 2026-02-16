@@ -57,6 +57,7 @@ const cs = caseStudies[slug] ?? null;
         alt={`${project.title} cover`}
         class="h-full w-full object-cover opacity-90"
         loading="lazy"
+        onerror="this.onerror=null;this.src='/images/placeholder.svg';"
       />
     </div>
   </div>
