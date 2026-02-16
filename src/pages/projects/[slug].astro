@@ -1,0 +1,115 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { projects } from "../../data/projects";
+import { caseStudies } from "../../data/caseStudies";
+
+export function getStaticPaths() {
+  return projects.map((p) => ({ params: { slug: p.slug } }));
+}
+
+const { slug } = Astro.params;
+const project = projects.find((p) => p.slug === slug);
+
+if (!project) {
+  throw new Error(`Project not found: ${slug}`);
+}
+
+const cs = caseStudies[slug] ?? null;
+---
+
+<Layout title={`${project.title} | Mohammad Abu Huzaifa`} description={project.oneLiner}>
+  <a href="/projects" class="text-sm text-sky-400 hover:underline">← Back to Projects</a>
+
+  <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+    <div>
+      <div class="text-sm text-slate-400">{project.category} • {project.dataset}</div>
+      <h1 class="mt-2 text-3xl sm:text-4xl font-semibold tracking-tight">{project.title}</h1>
+      <p class="mt-3 text-slate-300 max-w-3xl leading-relaxed">{project.oneLiner}</p>
+
+      <div class="mt-5 flex flex-wrap gap-2">
+        {project.stack.map((t) => (
+          <span class="text-xs rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-300">{t}</span>
+        ))}
+      </div>
+    </div>
+
+    <div class="flex gap-3">
+      <a
+        class="rounded-lg bg-sky-400 text-slate-950 px-4 py-2 text-sm font-semibold hover:opacity-90"
+        href={project.repoUrl}
+        target="_blank"
+      >
+        View on GitHub
+      </a>
+      <a
+        class="rounded-lg border border-white/10 px-4 py-2 text-sm text-slate-100 hover:bg-white/5"
+        href="/contact"
+      >
+        Contact
+      </a>
+    </div>
+  </div>
+
+  <div class="mt-8 rounded-xl border border-white/10 bg-white/5 overflow-hidden">
+    <div class="aspect-[16/9] bg-black/30">
+      <img
+        src={project.coverImage}
+        alt={`${project.title} cover`}
+        class="h-full w-full object-cover opacity-90"
+        loading="lazy"
+      />
+    </div>
+  </div>
+
+  {cs ? (
+    <div class="mt-10 grid gap-8 lg:grid-cols-3">
+      <section class="lg:col-span-2 space-y-8">
+        <div>
+          <h2 class="text-xl font-semibold">Overview</h2>
+          <p class="mt-2 text-slate-300 leading-relaxed">{cs.overview}</p>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-semibold">Problem</h2>
+          <ul class="mt-2 space-y-2 text-slate-300">
+            {cs.problem.map((x) => (<li class="list-disc ml-5">{x}</li>))}
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-semibold">Approach</h2>
+          <ul class="mt-2 space-y-2 text-slate-300">
+            {cs.approach.map((x) => (<li class="list-disc ml-5">{x}</li>))}
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-semibold">Results</h2>
+          <ul class="mt-2 space-y-2 text-slate-300">
+            {cs.results.map((x) => (<li class="list-disc ml-5">{x}</li>))}
+          </ul>
+        </div>
+      </section>
+
+      <aside class="rounded-xl border border-white/10 bg-white/5 p-5 h-fit">
+        <h2 class="text-lg font-semibold">Tools</h2>
+        <ul class="mt-3 space-y-2 text-slate-300">
+          {cs.tools.map((x) => (<li class="list-disc ml-5">{x}</li>))}
+        </ul>
+
+        {cs.notes ? (
+          <>
+            <h2 class="mt-6 text-lg font-semibold">Next improvements</h2>
+            <ul class="mt-3 space-y-2 text-slate-300">
+              {cs.notes.map((x) => (<li class="list-disc ml-5">{x}</li>))}
+            </ul>
+          </>
+        ) : null}
+      </aside>
+    </div>
+  ) : (
+    <div class="mt-10 rounded-xl border border-white/10 bg-white/5 p-6 text-slate-300">
+      Detailed case study coming soon. For now, check the GitHub repository for full implementation details.
+    </div>
+  )}
+</Layout>
