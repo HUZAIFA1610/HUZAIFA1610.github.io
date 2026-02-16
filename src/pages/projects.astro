@@ -1,7 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { projects } from "../data/projects";
+
+const categories = ["All", ...Array.from(new Set(projects.map((p) => p.category)))];
 ---
+
 
 <Layout
   title="Projects | Mohammad Abu Huzaifa"
@@ -12,9 +15,24 @@ import { projects } from "../data/projects";
     Curated projects with clear problem framing, approach, and measurable outcomes.
   </p>
 
+  <div class="mt-6 flex flex-wrap gap-2" id="project-filters">
+    {categories.map((c) => (
+      <button
+        type="button"
+        data-filter={c}
+        class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-200 hover:bg-white/10 transition"
+      >
+        {c}
+      </button>
+    ))}
+  </div>
+
   <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
   {projects.map((p) => (
-    <article class="rounded-xl border border-white/10 bg-white/5 overflow-hidden hover:bg-white/10 transition">
+    <article
+      class="rounded-xl border border-white/10 bg-white/5 overflow-hidden hover:bg-white/10 transition"
+      data-category={p.category}
+    >
       <a href={`/projects/${p.slug}`} class="block">
         <div class="aspect-[16/9] bg-black/30 overflow-hidden">
           <img
@@ -42,5 +60,46 @@ import { projects } from "../data/projects";
       </div>
     </article>
   ))}
-</div>
+  </div>
+  <script>
+    const filtersEl = document.getElementById("project-filters");
+    const buttons = filtersEl ? Array.from(filtersEl.querySelectorAll("button[data-filter]")) : [];
+    const cards = Array.from(document.querySelectorAll("article[data-category]"));
+
+    function setActiveButton(value) {
+      for (const btn of buttons) {
+        const isActive = btn.dataset.filter === value;
+        btn.classList.toggle("bg-white/10", isActive);
+        btn.classList.toggle("border-white/20", isActive);
+        btn.classList.toggle("text-white", isActive);
+      }
+    }
+
+    function applyFilter(value) {
+      const selected = value || "All";
+
+      for (const card of cards) {
+        const cat = card.getAttribute("data-category");
+        const show = selected === "All" || cat === selected;
+        card.style.display = show ? "" : "none";
+      }
+
+      setActiveButton(selected);
+
+      // Update URL like /projects?cat=BI%20Dashboard (without reloading)
+      const url = new URL(window.location.href);
+      if (selected === "All") url.searchParams.delete("cat");
+      else url.searchParams.set("cat", selected);
+      window.history.replaceState({}, "", url);
+    }
+
+    // Read initial filter from URL (?cat=...)
+    const initial = new URL(window.location.href).searchParams.get("cat") || "All";
+    applyFilter(initial);
+
+    // Click handling
+    for (const btn of buttons) {
+      btn.addEventListener("click", () => applyFilter(btn.dataset.filter || "All"));
+    }
+  </script>
 </Layout>
