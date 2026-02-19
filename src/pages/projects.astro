@@ -2,8 +2,21 @@
 import Layout from "../layouts/Layout.astro";
 import { projects } from "../data/projects";
 
-const categories = ["All", ...Array.from(new Set(projects.map((p) => p.category)))];
+// Sort: featured first, then category, then title
+const sortedProjects = [...projects].sort((a, b) => {
+  const af = a.featured ? 0 : 1;
+  const bf = b.featured ? 0 : 1;
+  if (af !== bf) return af - bf;
+
+  const cat = a.category.localeCompare(b.category);
+  if (cat !== 0) return cat;
+
+  return a.title.localeCompare(b.title);
+});
+
+const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.category)))];
 ---
+
 
 
 <Layout
@@ -14,6 +27,26 @@ const categories = ["All", ...Array.from(new Set(projects.map((p) => p.category)
   <p class="mt-2 text-slate-300 max-w-2xl">
     Curated projects with clear problem framing, approach, and measurable outcomes.
   </p>
+
+  <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div class="flex-1">
+      <label for="project-search" class="sr-only">Search projects</label>
+      <input
+        id="project-search"
+        type="search"
+        placeholder="Search by title, tech stack, or keywords…"
+        class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-100 placeholder:text-slate-400 outline-none focus:border-white/20"
+      />
+      <p class="mt-2 text-xs text-slate-400">
+        Tip: try “Power BI”, “FastAPI”, “R”, “forecast”, “anomaly”, “MySQL”
+      </p>
+    </div>
+
+    <div class="text-sm text-slate-300">
+      <span class="text-slate-400">Showing:</span>
+      <span id="project-count">0</span>
+    </div>
+  </div>
 
   <div class="mt-6 flex flex-wrap gap-2" id="project-filters">
     {categories.map((c) => (
@@ -28,11 +61,13 @@ const categories = ["All", ...Array.from(new Set(projects.map((p) => p.category)
   </div>
 
   <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-  {projects.map((p) => (
+  {sortedProjects.map((p) => (
     <article
       class="rounded-xl border border-white/10 bg-white/5 overflow-hidden hover:bg-white/10 transition"
       data-category={p.category}
+      data-search={`${p.title} ${p.oneLiner} ${p.stack.join(" ")}`.toLowerCase()}
     >
+
       <a href={`/projects/${p.slug}`} class="block">
         <div class="aspect-[16/9] bg-black/30 overflow-hidden">
           <img
@@ -45,7 +80,15 @@ const categories = ["All", ...Array.from(new Set(projects.map((p) => p.category)
         </div>
 
         <div class="p-5">
-          <div class="text-xs text-slate-400">{p.category} • {p.dataset}</div>
+          <div class="flex items-center justify-between gap-3">
+            <div class="text-xs text-slate-400">{p.category} • {p.dataset}</div>
+
+            {p.featured ? (
+            <span class="text-[11px] rounded-full border border-sky-400/30 bg-sky-400/10 px-2 py-1 text-sky-200">
+            Featured
+            </span>
+            ) : null}
+          </div>
           <div class="mt-1 font-semibold">{p.title}</div>
           <div class="mt-2 text-sm text-slate-300">{p.oneLiner}</div>
         </div>
@@ -66,6 +109,8 @@ const categories = ["All", ...Array.from(new Set(projects.map((p) => p.category)
     const filtersEl = document.getElementById("project-filters");
     const buttons = filtersEl ? Array.from(filtersEl.querySelectorAll("button[data-filter]")) : [];
     const cards = Array.from(document.querySelectorAll("article[data-category]"));
+    const searchInput = document.getElementById("project-search");
+    const countEl = document.getElementById("project-count");
 
     function setActiveButton(value) {
       for (const btn of buttons) {
@@ -76,31 +121,71 @@ const categories = ["All", ...Array.from(new Set(projects.map((p) => p.category)
       }
     }
 
-    function applyFilter(value) {
-      const selected = value || "All";
-
-      for (const card of cards) {
-        const cat = card.getAttribute("data-category");
-        const show = selected === "All" || cat === selected;
-        card.style.display = show ? "" : "none";
-      }
-
-      setActiveButton(selected);
-
-      // Update URL like /projects?cat=BI%20Dashboard (without reloading)
+    function getState() {
       const url = new URL(window.location.href);
-      if (selected === "All") url.searchParams.delete("cat");
-      else url.searchParams.set("cat", selected);
+      const cat = url.searchParams.get("cat") || "All";
+      const q = url.searchParams.get("q") || "";
+      return { cat, q };
+    }
+
+    function setState({ cat, q }) {
+      const url = new URL(window.location.href);
+      if (!cat || cat === "All") url.searchParams.delete("cat");
+      else url.searchParams.set("cat", cat);
+
+      if (!q) url.searchParams.delete("q");
+      else url.searchParams.set("q", q);
+
       window.history.replaceState({}, "", url);
     }
 
-    // Read initial filter from URL (?cat=...)
-    const initial = new URL(window.location.href).searchParams.get("cat") || "All";
-    applyFilter(initial);
+    function applyFilters({ cat, q }) {
+      const selectedCat = cat || "All";
+      const query = (q || "").trim().toLowerCase();
 
-    // Click handling
+      let shown = 0;
+
+      for (const card of cards) {
+        const cardCat = card.getAttribute("data-category") || "";
+        const hay = card.getAttribute("data-search") || "";
+
+        const matchCat = selectedCat === "All" || cardCat === selectedCat;
+        const matchQ = !query || hay.includes(query);
+
+        const show = matchCat && matchQ;
+        card.style.display = show ? "" : "none";
+        if (show) shown += 1;
+      }
+
+      setActiveButton(selectedCat);
+      if (countEl) countEl.textContent = String(shown);
+    }
+
+    // Init from URL
+    const initial = getState();
+    if (searchInput) searchInput.value = initial.q;
+    applyFilters(initial);
+
+    // Category clicks
     for (const btn of buttons) {
-      btn.addEventListener("click", () => applyFilter(btn.dataset.filter || "All"));
+      btn.addEventListener("click", () => {
+        const next = { ...getState(), cat: btn.dataset.filter || "All" };
+        setState(next);
+        applyFilters(next);
+      });
+    }
+
+    // Search typing (debounced)
+    let t;
+    if (searchInput) {
+      searchInput.addEventListener("input", () => {
+        window.clearTimeout(t);
+        t = window.setTimeout(() => {
+          const next = { ...getState(), q: searchInput.value || "" };
+          setState(next);
+          applyFilters(next);
+        }, 120);
+      });
     }
   </script>
 </Layout>
