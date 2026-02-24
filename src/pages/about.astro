@@ -1,10 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { profile } from "../data/profile";
 ---
 
 <Layout
-  title="About | Mohammad Abu Huzaifa"
-  description="About Mohammad Abu Huzaifa — Data Analyst focused on BI dashboards, predictive insights, and decision support."
+  title={`About | ${profile.name}`}
+  description={`About ${profile.name} — ${profile.roleLine}`}
 >
   <h1 class="text-3xl font-semibold tracking-tight">About</h1>
 
@@ -23,6 +24,28 @@ import Layout from "../layouts/Layout.astro";
         <li><span class="font-medium text-slate-100">Data analysis</span> for trends, segmentation, and reporting (Python/R)</li>
         <li><span class="font-medium text-slate-100">Decision-support systems</span> (APIs + lightweight interfaces) for real operations</li>
       </ul>
+
+      <h2 class="mt-6 text-lg font-semibold">Experience snapshot</h2>
+      <div class="mt-3 grid gap-4 sm:grid-cols-2">
+        <div class="rounded-xl border border-white/10 bg-white/5 p-5">
+          <div class="text-sm text-slate-400">Analytics & BI</div>
+          <ul class="mt-2 space-y-2 text-slate-300">
+            <li class="list-disc ml-5">Power BI dashboards with KPI storytelling and drill-down</li>
+            <li class="list-disc ml-5">SQL-backed reporting and data transformations</li>
+            <li class="list-disc ml-5">Time-series trend analysis and performance insights</li>
+          </ul>
+        </div>
+
+        <div class="rounded-xl border border-white/10 bg-white/5 p-5">
+          <div class="text-sm text-slate-400">Applied ML / Decision Support</div>
+          <ul class="mt-2 space-y-2 text-slate-300">
+            <li class="list-disc ml-5">Predictive analytics workflows for risk monitoring</li>
+            <li class="list-disc ml-5">Model evaluation trade-offs and threshold-based decisions</li>
+            <li class="list-disc ml-5">Deployable analytics via API + lightweight UI</li>
+          </ul>
+        </div>
+      </div>
+
 
       <h2 class="mt-6 text-lg font-semibold">Featured work</h2>
       <ul class="mt-2 grid gap-2 text-slate-300 list-disc pl-5">
@@ -53,16 +76,24 @@ import Layout from "../layouts/Layout.astro";
     <aside class="rounded-xl border border-white/10 bg-white/5 p-5 h-fit">
       <h2 class="text-lg font-semibold">Quick facts</h2>
       <div class="mt-3 text-sm text-slate-300 space-y-2">
-        <p><span class="text-slate-400">Role:</span> Data Analyst</p>
+        <p><span class="text-slate-400">Role:</span> {profile.roleLine}</p>
         <p><span class="text-slate-400">Degree:</span> BSc Computer Science (Data Analytics)</p>
-        <p><span class="text-slate-400">Location:</span> Malaysia</p>
+        <p><span class="text-slate-400">Location:</span> {profile.location}</p>
+        <p>
+          <span class="text-slate-400">Email:</span>{" "}
+          <a class="text-sky-400 hover:underline" href={`mailto:${profile.email}`}>
+            {profile.email}
+          </a>
+        </p>
       </div>
+
 
       <h2 class="mt-6 text-lg font-semibold">Core tools</h2>
       <div class="mt-3 flex flex-wrap gap-2">
-        {["Python", "Power BI", "MySQL", "R", "FastAPI", "Streamlit", "Excel"].map((t) => (
+        {profile.coreTools.map((t) => (
           <span class="text-xs rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-300">{t}</span>
         ))}
+
       </div>
     </aside>
   </div>
