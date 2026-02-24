@@ -8,6 +8,7 @@ export type Project = {
   stack: string[];
   coverImage: string; // path from /public
   repoUrl: string;
+  demoUrl?: string;
   featured?: boolean;
 };
 

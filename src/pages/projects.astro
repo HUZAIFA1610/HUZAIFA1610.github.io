@@ -98,10 +98,18 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
         <a class="text-sm text-sky-400 hover:underline" href={`/projects/${p.slug}`}>
           Case study →
         </a>
-        <a class="text-sm text-slate-300 hover:text-white" href={p.repoUrl} target="_blank">
+
+        {p.demoUrl ? (
+          <a class="text-sm text-slate-300 hover:text-white" href={p.demoUrl} target="_blank" rel="noopener noreferrer">
+            Live demo →
+          </a>
+        ) : null}
+
+        <a class="text-sm text-slate-300 hover:text-white" href={p.repoUrl} target="_blank" rel="noopener noreferrer">
           GitHub →
         </a>
       </div>
+
     </article>
   ))}
   </div>

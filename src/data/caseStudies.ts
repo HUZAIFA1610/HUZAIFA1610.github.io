@@ -55,14 +55,24 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     screenshots: [
       {
-        src: "/images/projects/water-quality/screen-1.png",
+        src: "/images/water-quality/screen-1.png",
         alt: "Water Quality interface - overview",
-        caption: "Add a screenshot of your Streamlit interface (overview).",
+        caption: "Streamlit main page showing primary inputs + outputs of main dashboard view.",
       },
       {
-        src: "/images/projects/water-quality/screen-2.png",
+        src: "/images/water-quality/screen-2.png",
         alt: "Water Quality API docs - Swagger",
-        caption: "Add a screenshot of your FastAPI Swagger docs.",
+        caption: "Results view (risk tier / WQI output / alert), where the result shows CCME-WQI score + risk tier + anomaly/alert.",
+      },
+      {
+        src: "/images/water-quality/screen-3.png",
+        alt: "Water Quality API docs - Swagger",
+        caption: "Explainability (SHAP or Integrated Gradients)",
+      },
+      {
+        src: "/images/water-quality/screen-4.png",
+        alt: "Water Quality API docs - Swagger",
+        caption: "API documentation (Swagger UI), FastAPI Swagger page showing endpoints.",
       },
     ],
     tools: [
@@ -109,14 +119,24 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     screenshots: [
       {
-        src: "/images/projects/fraud-detection/screen-1.png",
+        src: "/images/fraud-detection/screen-1.png",
         alt: "Fraud detection - PR curve or evaluation plot",
-        caption: "Add PR curve / confusion matrix screenshot from your notebook.",
+        caption: "Dataset / class imbalance summary (the key chart/table showing fraud vs non-fraud distribution).",
       },
       {
-        src: "/images/projects/fraud-detection/screen-2.png",
+        src: "/images/fraud-detection/screen-2.png",
         alt: "Fraud detection - model comparison table",
-        caption: "Add model comparison result (metrics table).",
+        caption: "Transformer Model performance curve (PR curve and ROC curve).",
+      },
+      {
+        src: "/images/fraud-detection/screen-3.png",
+        alt: "Fraud detection - model comparison table",
+        caption: "GNN Model Performance Curve (ROC Curve).",
+      },
+      {
+        src: "/images/fraud-detection/screen-4.png",
+        alt: "Fraud detection - model comparison table",
+        caption: "Model comparison table (a table comparing models + metrics).",
       },
     ],
     tools: ["Python", "Scikit-learn", "TensorFlow/Keras", "PyTorch Geometric", "Keras Tuner"],
@@ -153,14 +173,29 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     screenshots: [
       {
-        src: "/images/projects/fusion-bikes-bi/screen-1.png",
+        src: "/images/fusion-bikes-bi/screen-1.png",
         alt: "Fusion Bikes dashboard - overview page",
-        caption: "Add your best overview dashboard screenshot.",
+        caption: "Total Sales Report Dashboard.",
       },
       {
-        src: "/images/projects/fusion-bikes-bi/screen-2.png",
+        src: "/images/fusion-bikes-bi/screen-2.png",
         alt: "Fusion Bikes dashboard - drilldown page",
-        caption: "Add a drill-down page (region/product).",
+        caption: "Top Internet Sales Dashboard.",
+      },
+      {
+        src: "/images/fusion-bikes-bi/screen-3.png",
+        alt: "Fusion Bikes dashboard - drilldown page",
+        caption: "Top Sales by Gender, Income, and Education Dashboard.",
+      },
+      {
+        src: "/images/fusion-bikes-bi/screen-4.png",
+        alt: "Fusion Bikes dashboard - drilldown page",
+        caption: "Total Sales Amount by Month and Year.",
+      },
+      {
+        src: "/images/fusion-bikes-bi/screen-5.png",
+        alt: "Fusion Bikes dashboard - drilldown page",
+        caption: "DAX measures snippet.",
       },
     ],
     tools: ["MySQL", "Power BI", "DAX"],

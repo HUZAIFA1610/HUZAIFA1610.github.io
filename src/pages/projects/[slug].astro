@@ -35,6 +35,17 @@ const cs = caseStudies[slug] ?? null;
       >
         Contact
       </a>
+      {project.demoUrl ? (
+        <a
+          class="rounded-lg border border-white/10 px-4 py-2 text-sm text-slate-100 hover:bg-white/5"
+          href={project.demoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+        Live Demo
+        </a>
+      ) : null}
+
     </div>
   </div>
 
