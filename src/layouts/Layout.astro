@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { profile } from "../data/profile";
 
 const {
   title = "Mohammad Abu Huzaifa | Data Analyst",
@@ -36,9 +37,10 @@ const {
     <header class="border-b border-white/10">
       <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
         <a href="/" class="font-semibold tracking-tight">
-          Mohammad Abu Huzaifa
+          {profile.name}
           <span class="text-sky-400">.</span>
         </a>
+
 
         <nav class="flex gap-5 text-sm text-slate-300">
           <a class="hover:text-white" href="/">Home</a>
@@ -58,10 +60,11 @@ const {
       <div class="mx-auto max-w-6xl px-4 py-6 text-sm text-slate-400 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <p>© {new Date().getFullYear()} Mohammad Abu Huzaifa</p>
         <div class="flex gap-4">
-          <a class="hover:text-white" href="mailto:huzaifanafiz6@gmail.com">Email</a>
-          <a class="hover:text-white" href="https://www.linkedin.com/in/mohammad-abu-huzaifa-b98314279/" target="_blank">LinkedIn</a>
-          <a class="hover:text-white" href="https://github.com/HUZAIFA1610" target="_blank">GitHub</a>
+          <a class="hover:text-white" href={`mailto:${profile.email}`}>Email</a>
+          <a class="hover:text-white" href={profile.links.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a class="hover:text-white" href={profile.links.github} target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
+
       </div>
     </footer>
   </body>
