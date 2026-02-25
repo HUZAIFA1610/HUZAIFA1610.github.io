@@ -78,25 +78,38 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
   ) : null}
 
 
-  <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+  <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
     <div class="flex-1">
       <label for="project-search" class="sr-only">Search projects</label>
-      <input
-        id="project-search"
-        type="search"
-        placeholder="Search by title, tech stack, or keywords…"
-        class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-100 placeholder:text-slate-400 outline-none focus:border-white/20"
-      />
+
+      <div class="flex gap-2">
+        <input
+          id="project-search"
+          type="search"
+          placeholder="Search by title, tech stack, or keywords…"
+          class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-100 placeholder:text-slate-400 outline-none focus:border-white/20"
+        />
+
+        <button
+          id="clear-search"
+          type="button"
+          class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-200 hover:bg-white/10 transition"
+        >
+          Clear
+        </button>
+      </div>
+
       <p class="mt-2 text-xs text-slate-400">
         Tip: try “Power BI”, “FastAPI”, “R”, “forecast”, “anomaly”, “MySQL”
       </p>
     </div>
 
-    <div class="text-sm text-slate-300">
+    <div class="text-sm text-slate-300 pt-1">
       <span class="text-slate-400">Showing:</span>
       <span id="project-count">0</span>
     </div>
   </div>
+
 
   <div class="mt-6 flex flex-wrap gap-2" id="project-filters">
     {categories.map((c) => (
@@ -111,64 +124,78 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
   </div>
 
   <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-  {sortedProjects.map((p) => (
-    <article
-      class="rounded-xl border border-white/10 bg-white/5 overflow-hidden hover:bg-white/10 transition"
-      data-category={p.category}
-      data-search={`${p.title} ${p.oneLiner} ${p.stack.join(" ")}`.toLowerCase()}
-    >
+    {sortedProjects.map((p) => (
+      <article
+        class="rounded-xl border border-white/10 bg-white/5 overflow-hidden hover:bg-white/10 transition"
+        data-category={p.category}
+        data-search={`${p.title} ${p.oneLiner} ${p.stack.join(" ")}`.toLowerCase()}
+      >
 
-      <a href={`/projects/${p.slug}`} class="block">
-        <div class="aspect-[16/9] bg-black/30 overflow-hidden">
-          <img
-            src={p.coverImage}
-            alt={`${p.title} cover`}
-            class="h-full w-full object-cover opacity-90"
-            loading="lazy"
-            onerror="this.onerror=null;this.src='/images/placeholder.svg';"
-          />
-        </div>
-
-        <div class="p-5">
-          <div class="flex items-center justify-between gap-3">
-            <div class="text-xs text-slate-400">{p.category} • {p.dataset}</div>
-
-            {p.featured ? (
-            <span class="text-[11px] rounded-full border border-sky-400/30 bg-sky-400/10 px-2 py-1 text-sky-200">
-            Featured
-            </span>
-            ) : null}
+        <a href={`/projects/${p.slug}`} class="block">
+          <div class="aspect-[16/9] bg-black/30 overflow-hidden">
+            <img
+              src={p.coverImage}
+              alt={`${p.title} cover`}
+              class="h-full w-full object-cover opacity-90"
+              loading="lazy"
+              onerror="this.onerror=null;this.src='/images/placeholder.svg';"
+            />
           </div>
-          <div class="mt-1 font-semibold">{p.title}</div>
-          <div class="mt-2 text-sm text-slate-300">{p.oneLiner}</div>
-        </div>
-      </a>
 
-      <div class="px-5 pb-5 flex gap-3">
-        <a class="text-sm text-sky-400 hover:underline" href={`/projects/${p.slug}`}>
-          Case study →
+          <div class="p-5">
+            <div class="flex items-center justify-between gap-3">
+              <div class="text-xs text-slate-400">{p.category} • {p.dataset}</div>
+
+              {p.featured ? (
+              <span class="text-[11px] rounded-full border border-sky-400/30 bg-sky-400/10 px-2 py-1 text-sky-200">
+              Featured
+              </span>
+              ) : null}
+            </div>
+            <div class="mt-1 font-semibold">{p.title}</div>
+            <div class="mt-2 text-sm text-slate-300">{p.oneLiner}</div>
+          </div>
         </a>
 
-        {p.demoUrl ? (
-          <a class="text-sm text-slate-300 hover:text-white" href={p.demoUrl} target="_blank" rel="noopener noreferrer">
-            Live demo →
+        <div class="px-5 pb-5 flex gap-3">
+          <a class="text-sm text-sky-400 hover:underline" href={`/projects/${p.slug}`}>
+            Case study →
           </a>
-        ) : null}
 
-        <a class="text-sm text-slate-300 hover:text-white" href={p.repoUrl} target="_blank" rel="noopener noreferrer">
-          GitHub →
-        </a>
-      </div>
+          {p.demoUrl ? (
+            <a class="text-sm text-slate-300 hover:text-white" href={p.demoUrl} target="_blank" rel="noopener noreferrer">
+              Live demo →
+            </a>
+          ) : null}
 
-    </article>
-  ))}
+          <a class="text-sm text-slate-300 hover:text-white" href={p.repoUrl} target="_blank" rel="noopener noreferrer">
+            GitHub →
+          </a>
+        </div>
+
+      </article>
+    ))}
   </div>
+
+  <div
+    id="no-results"
+    class="mt-6 hidden rounded-xl border border-white/10 bg-white/5 p-6 text-slate-300"
+  >
+    <p class="font-medium text-slate-100">No matching projects found.</p>
+    <p class="mt-2 text-sm text-slate-400">
+      Try a different keyword (e.g., <span class="text-slate-300">Power BI</span>, <span class="text-slate-300">Python</span>, <span class="text-slate-300">R</span>) or click a different category filter.
+    </p>
+  </div>
+
+
   <script>
     const filtersEl = document.getElementById("project-filters");
     const buttons = filtersEl ? Array.from(filtersEl.querySelectorAll("button[data-filter]")) : [];
     const cards = Array.from(document.querySelectorAll("article[data-category]"));
     const searchInput = document.getElementById("project-search");
+    const clearBtn = document.getElementById("clear-search");
     const countEl = document.getElementById("project-count");
+    const noResultsEl = document.getElementById("no-results");
 
     function setActiveButton(value) {
       for (const btn of buttons) {
@@ -188,11 +215,12 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
 
     function setState({ cat, q }) {
       const url = new URL(window.location.href);
+
       if (!cat || cat === "All") url.searchParams.delete("cat");
       else url.searchParams.set("cat", cat);
 
-      if (!q) url.searchParams.delete("q");
-      else url.searchParams.set("q", q);
+      if (!q || !q.trim()) url.searchParams.delete("q");
+      else url.searchParams.set("q", q.trim());
 
       window.history.replaceState({}, "", url);
     }
@@ -205,26 +233,29 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
 
       for (const card of cards) {
         const cardCat = card.getAttribute("data-category") || "";
-        const hay = card.getAttribute("data-search") || "";
+        const hay = (card.getAttribute("data-search") || "").toLowerCase();
 
         const matchCat = selectedCat === "All" || cardCat === selectedCat;
         const matchQ = !query || hay.includes(query);
 
         const show = matchCat && matchQ;
         card.style.display = show ? "" : "none";
+
         if (show) shown += 1;
       }
 
       setActiveButton(selectedCat);
-      if (countEl) countEl.textContent = String(shown);
+
+      if (countEl) countEl.textContent = `${shown} / ${cards.length}`;
+      if (noResultsEl) noResultsEl.classList.toggle("hidden", shown !== 0);
     }
 
-    // Init from URL
+    // Initial load from URL
     const initial = getState();
     if (searchInput) searchInput.value = initial.q;
     applyFilters(initial);
 
-    // Category clicks
+    // Filter button click
     for (const btn of buttons) {
       btn.addEventListener("click", () => {
         const next = { ...getState(), cat: btn.dataset.filter || "All" };
@@ -233,16 +264,27 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
       });
     }
 
-    // Search typing (debounced)
+    // Search typing (small debounce)
     let t;
     if (searchInput) {
       searchInput.addEventListener("input", () => {
-        window.clearTimeout(t);
-        t = window.setTimeout(() => {
+        clearTimeout(t);
+        t = setTimeout(() => {
           const next = { ...getState(), q: searchInput.value || "" };
           setState(next);
           applyFilters(next);
         }, 120);
+      });
+    }
+
+    // Clear search button
+    if (clearBtn && searchInput) {
+      clearBtn.addEventListener("click", () => {
+        searchInput.value = "";
+        const next = { ...getState(), q: "" };
+        setState(next);
+        applyFilters(next);
+        searchInput.focus();
       });
     }
   </script>
