@@ -9,7 +9,7 @@ export const profile = {
     site: "https://huzaifa1610.github.io/",
     github: "https://github.com/HUZAIFA1610",
     linkedin: "https://www.linkedin.com/in/mohammad-abu-huzaifa-b98314279/",
-    booking: "https://calendly.com/your-username/15min",
+    booking: "https://calendly.com/huzaifanafiz6/30min",
   },
   coreTools: ["Python", "Power BI", "SQL", "MySQL", "R", "FastAPI", "Streamlit", "Excel"],
   stats: [
