@@ -159,57 +159,157 @@ const previewData = Object.fromEntries(
   </section>
 
   <section class="mt-12">
-    <div class="flex items-end justify-between gap-4">
-      <h2 class="text-xl font-semibold">Areas of Interest</h2>
-      <a class="text-sm text-sky-400 hover:underline" href="/skills">View full skills →</a>
+    <div class="text-center">
+      <h2 class="text-2xl font-semibold tracking-tight">Areas of Interest</h2>
+      <p class="mt-2 text-slate-300">
+        What I can deliver in a Data Analyst role — clean insights, clear reporting, and decision support.
+      </p>
     </div>
 
-    <p class="mt-2 text-slate-300 max-w-2xl">
-      The kinds of work I can contribute to in a Data Analyst role (and the services I can provide for project-based collaboration).
-    </p>
-
-    <div class="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-      <div class="rounded-xl border border-white/10 bg-white/5 p-6">
-        <h3 class="font-semibold">BI Dashboard Development</h3>
+    <div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <!-- 1 -->
+      <article class="text-center">
+        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-sky-300">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" class="opacity-90" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19V5" /><path d="M4 19H20" />
+            <path d="M8 15l2-2 3 3 5-6" />
+          </svg>
+        </div>
+        <h3 class="mt-4 font-semibold">BI Dashboard Development</h3>
         <p class="mt-2 text-sm text-slate-300">
-          Build interactive Power BI dashboards with KPIs, drill-down analysis, and business storytelling for decision-makers.
+          Power BI dashboards with KPI storytelling, drill-down analysis, and executive-ready views.
         </p>
-      </div>
 
-      <div class="rounded-xl border border-white/10 bg-white/5 p-6">
-        <h3 class="font-semibold">Data Cleaning & Analysis</h3>
-        <p class="mt-2 text-sm text-slate-300">
-          Perform EDA, trend analysis, segmentation, and insight generation using Python/R for reporting and planning.
-        </p>
-      </div>
+        <details class="mt-3 inline-block text-left">
+          <summary class="cursor-pointer text-sm text-sky-300 hover:underline">Deliverables</summary>
+          <ul class="mt-2 space-y-1 text-sm text-slate-300">
+            <li class="list-disc ml-5">KPI dashboard pages</li>
+            <li class="list-disc ml-5">DAX measures + drilldowns</li>
+            <li class="list-disc ml-5">Insights summary</li>
+          </ul>
+        </details>
+      </article>
 
-      <div class="rounded-xl border border-white/10 bg-white/5 p-6">
-        <h3 class="font-semibold">Predictive Analytics Prototyping</h3>
+      <!-- 2 -->
+      <article class="text-center">
+        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-sky-300">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" class="opacity-90" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6h18" /><path d="M7 12h10" /><path d="M10 18h4" />
+          </svg>
+        </div>
+        <h3 class="mt-4 font-semibold">Data Cleaning & Analysis</h3>
         <p class="mt-2 text-sm text-slate-300">
-          Develop model prototypes, evaluate trade-offs, and present interpretable outputs for operational decision support.
+          EDA, trend analysis, segmentation, and insight generation using Python/R.
         </p>
-      </div>
 
-      <div class="rounded-xl border border-white/10 bg-white/5 p-6">
-        <h3 class="font-semibold">KPI Reporting & Monitoring</h3>
-        <p class="mt-2 text-sm text-slate-300">
-          Define and track core business metrics with consistent reporting structures for ongoing performance review.
-        </p>
-      </div>
+        <details class="mt-3 inline-block text-left">
+          <summary class="cursor-pointer text-sm text-sky-300 hover:underline">Deliverables</summary>
+          <ul class="mt-2 space-y-1 text-sm text-slate-300">
+            <li class="list-disc ml-5">Cleaned dataset + notebook</li>
+            <li class="list-disc ml-5">Key insights + charts</li>
+            <li class="list-disc ml-5">Recommendations</li>
+          </ul>
+        </details>
+      </article>
 
-      <div class="rounded-xl border border-white/10 bg-white/5 p-6">
-        <h3 class="font-semibold">Data-to-Decision Workflows</h3>
+      <!-- 3 -->
+      <article class="text-center">
+        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-sky-300">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" class="opacity-90" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v6" /><path d="M12 16v6" />
+            <path d="M4.9 4.9l4.2 4.2" /><path d="M14.9 14.9l4.2 4.2" />
+            <path d="M2 12h6" /><path d="M16 12h6" />
+            <path d="M4.9 19.1l4.2-4.2" /><path d="M14.9 9.1l4.2-4.2" />
+          </svg>
+        </div>
+        <h3 class="mt-4 font-semibold">Predictive Analytics</h3>
         <p class="mt-2 text-sm text-slate-300">
-          Translate business problems into data workflows that produce clear, actionable outputs for stakeholders.
+          Model prototypes, evaluation trade-offs, and interpretable outputs for decisions.
         </p>
-      </div>
 
-      <div class="rounded-xl border border-white/10 bg-white/5 p-6">
-        <h3 class="font-semibold">Lightweight Analytics Apps</h3>
+        <details class="mt-3 inline-block text-left">
+          <summary class="cursor-pointer text-sm text-sky-300 hover:underline">Deliverables</summary>
+          <ul class="mt-2 space-y-1 text-sm text-slate-300">
+            <li class="list-disc ml-5">Model comparison</li>
+            <li class="list-disc ml-5">Explainability summary</li>
+            <li class="list-disc ml-5">Deployment-ready outputs</li>
+          </ul>
+        </details>
+      </article>
+
+      <!-- 4 -->
+      <article class="text-center">
+        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-sky-300">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" class="opacity-90" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19V5" /><path d="M8 19V9" /><path d="M12 19V12" /><path d="M16 19V7" /><path d="M20 19V10" />
+          </svg>
+        </div>
+        <h3 class="mt-4 font-semibold">KPI Reporting</h3>
         <p class="mt-2 text-sm text-slate-300">
-          Build simple analytics interfaces using FastAPI + Streamlit for demos, internal tools, and decision support.
+          Structured reporting for monitoring performance, gaps, and opportunities.
         </p>
-      </div>
+
+        <details class="mt-3 inline-block text-left">
+          <summary class="cursor-pointer text-sm text-sky-300 hover:underline">Deliverables</summary>
+          <ul class="mt-2 space-y-1 text-sm text-slate-300">
+            <li class="list-disc ml-5">KPI definitions</li>
+            <li class="list-disc ml-5">Monthly/weekly reporting</li>
+            <li class="list-disc ml-5">Actionable insights</li>
+          </ul>
+        </details>
+      </article>
+
+      <!-- 5 -->
+      <article class="text-center">
+        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-sky-300">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" class="opacity-90" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 7c0-2 4-3 8-3s8 1 8 3-4 3-8 3-8-1-8-3Z" />
+            <path d="M4 7v10c0 2 4 3 8 3s8-1 8-3V7" />
+            <path d="M4 12c0 2 4 3 8 3s8-1 8-3" />
+          </svg>
+        </div>
+        <h3 class="mt-4 font-semibold">SQL & Data Pipelines</h3>
+        <p class="mt-2 text-sm text-slate-300">
+          Querying, transformations, and dataset preparation for analytics and BI.
+        </p>
+
+        <details class="mt-3 inline-block text-left">
+          <summary class="cursor-pointer text-sm text-sky-300 hover:underline">Deliverables</summary>
+          <ul class="mt-2 space-y-1 text-sm text-slate-300">
+            <li class="list-disc ml-5">SQL queries / views</li>
+            <li class="list-disc ml-5">Clean tables for BI</li>
+            <li class="list-disc ml-5">Documentation</li>
+          </ul>
+        </details>
+      </article>
+
+      <!-- 6 -->
+      <article class="text-center">
+        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-sky-300">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" class="opacity-90" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 6h16v10H4z" />
+            <path d="M8 20h8" />
+            <path d="M10 16v4" />
+          </svg>
+        </div>
+        <h3 class="mt-4 font-semibold">Analytics Apps (FastAPI + Streamlit)</h3>
+        <p class="mt-2 text-sm text-slate-300">
+          Lightweight dashboards and APIs for internal tools, demos, and decision support.
+        </p>
+
+        <details class="mt-3 inline-block text-left">
+          <summary class="cursor-pointer text-sm text-sky-300 hover:underline">Deliverables</summary>
+          <ul class="mt-2 space-y-1 text-sm text-slate-300">
+            <li class="list-disc ml-5">Streamlit UI</li>
+            <li class="list-disc ml-5">FastAPI endpoints</li>
+            <li class="list-disc ml-5">Swagger docs</li>
+          </ul>
+        </details>
+      </article>
+    </div>
+
+    <div class="mt-8 text-center">
+      <a class="text-sm text-sky-400 hover:underline" href="/skills">View full skills →</a>
     </div>
   </section>
 
