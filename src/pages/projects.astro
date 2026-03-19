@@ -30,7 +30,7 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
   </p>
 
   {featuredProjects.length ? (
-    <section class="mt-6">
+    <section class="mt-10">
       <div class="flex items-end justify-between gap-4">
         <h2 class="text-xl font-semibold">Featured</h2>
         <p class="text-sm text-slate-400">High-impact case studies</p>
@@ -78,7 +78,7 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
   ) : null}
 
 
-  <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+  <div class="mt-10 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
     <div class="flex-1">
       <label for="project-search" class="sr-only">Search projects</label>
 
@@ -111,7 +111,7 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
   </div>
 
 
-  <div class="mt-6 flex flex-wrap gap-2" id="project-filters">
+  <div class="mt-10 flex flex-wrap gap-3" id="project-filters">
     {categories.map((c) => (
       <button
         type="button"
@@ -123,16 +123,19 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
     ))}
   </div>
 
-  <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  <div class="mt-8 border-t border-white/30"></div>
+
+  <div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
     {sortedProjects.map((p) => (
-      <article
-        class="rounded-xl border border-white/10 bg-white/5 overflow-hidden hover:bg-white/10 transition"
-        data-category={p.category}
-        data-search={`${p.title} ${p.oneLiner} ${p.stack.join(" ")}`.toLowerCase()}
-      >
+      // <article
+      //   class="rounded-xl border border-white/10 bg-white/5 overflow-hidden hover:bg-white/10 transition"
+      //   data-category={p.category}
+      //   data-search={`${p.title} ${p.oneLiner} ${p.stack.join(" ")}`.toLowerCase()}
+      // >
+      <article class="group rounded-2xl p-2 transition hover:bg-white/5">
 
         <a href={`/projects/${p.slug}`} class="block">
-          <div class="aspect-[16/9] bg-black/30 overflow-hidden">
+          <div class="aspect-[16/9] overflow-hidden rounded-2xl border border-white/10 bg-black/30">
             <img
               src={p.coverImage}
               alt={`${p.title} cover`}
@@ -142,7 +145,7 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
             />
           </div>
 
-          <div class="p-5">
+          <div class="p-4">
             <div class="flex items-center justify-between gap-3">
               <div class="text-xs text-slate-400">{p.category} • {p.dataset}</div>
 
@@ -152,7 +155,7 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
               </span>
               ) : null}
             </div>
-            <div class="mt-1 font-semibold">{p.title}</div>
+            <div class="mt-2 font-semibold group-hover:underline underline-offset-4">{p.title}</div>
             <div class="mt-2 text-sm text-slate-300">{p.oneLiner}</div>
           </div>
         </a>
