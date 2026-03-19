@@ -1,9 +1,10 @@
 export const profile = {
   name: "Mohammad Abu Huzaifa",
+  headshot: "/images/headshot.png",
   roleLine: "Data Analyst | BI & Predictive Insights",
   tagline:
     "I turn complex datasets into executive-ready dashboards, risk signals, and decision support—using Python, SQL, and Power BI.",
-  location: "Malaysia",
+  location: "Bangladesh",
   email: "huzaifanafiz6@gmail.com",
   links: {
     site: "https://huzaifa1610.github.io/",
