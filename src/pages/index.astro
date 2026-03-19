@@ -119,42 +119,104 @@ const previewData = Object.fromEntries(
     </div>
   </section>
 
-  <section class="mt-10">
-    <h2 class="text-xl font-semibold">Experience</h2>
-    <p class="mt-2 text-slate-300 max-w-2xl">
-      A quick overview of applied analytics, BI work, and leadership experience that supports my Data Analyst profile.
-    </p>
+  <section class="mt-12">
+    <div class="text-center">
+      <h2 class="text-2xl font-semibold tracking-tight">Experience</h2>
+      <p class="mt-2 text-slate-300">
+        A quick snapshot of applied analytics work and leadership — optimized for fast scanning.
+      </p>
+    </div>
 
-    <div class="mt-4 grid gap-4 lg:grid-cols-3">
-      <div class="rounded-xl border border-white/10 bg-white/5 p-6">
-        <div class="text-sm text-slate-400">Applied Analytics Projects</div>
-        <h3 class="mt-2 font-semibold">End-to-end analysis & decision support</h3>
-        <ul class="mt-3 space-y-2 text-slate-300">
-          <li class="list-disc ml-5">Predictive maintenance and risk monitoring workflows</li>
-          <li class="list-disc ml-5">Fraud detection evaluation and threshold trade-off analysis</li>
-          <li class="list-disc ml-5">Exploratory analysis across large transaction and sales datasets</li>
-        </ul>
-      </div>
+    <div class="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+      <!-- 1 -->
+      <article class="text-center">
+        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-sky-300">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" class="opacity-90" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19V5" /><path d="M4 19H20" />
+            <path d="M8 15l2-2 3 3 5-6" />
+          </svg>
+        </div>
 
-      <div class="rounded-xl border border-white/10 bg-white/5 p-6">
-        <div class="text-sm text-slate-400">Business Intelligence & Reporting</div>
-        <h3 class="mt-2 font-semibold">Dashboarding and KPI storytelling</h3>
-        <ul class="mt-3 space-y-2 text-slate-300">
-          <li class="list-disc ml-5">Power BI dashboards for sales trends and performance insights</li>
-          <li class="list-disc ml-5">MySQL + DAX-based reporting workflows</li>
-          <li class="list-disc ml-5">Executive-friendly views for monitoring and decision support</li>
-        </ul>
-      </div>
+        <h3 class="mt-4 font-semibold">Applied Analytics Projects</h3>
+        <p class="mt-2 text-sm text-slate-300">
+          End-to-end analysis and decision support for real datasets and operational workflows.
+        </p>
 
-      <div class="rounded-xl border border-white/10 bg-white/5 p-6">
-        <div class="text-sm text-slate-400">Leadership & Operations</div>
-        <h3 class="mt-2 font-semibold">Team coordination and event execution</h3>
-        <ul class="mt-3 space-y-2 text-slate-300">
-          <li class="list-disc ml-5">Vice President — APU Bangladesh Society</li>
-          <li class="list-disc ml-5">Sports Secretary — Bangladesh Student Organisation of Malaysia</li>
-          <li class="list-disc ml-5">Led multi-team events (100–1000 attendees / participants)</li>
+        <ul class="mt-3 space-y-2 text-sm text-slate-300">
+          <li class="list-disc ml-5 text-left">Predictive maintenance + risk monitoring workflows</li>
+          <li class="list-disc ml-5 text-left">Fraud detection evaluation + threshold trade-offs</li>
         </ul>
-      </div>
+
+        <details class="mt-3 inline-block text-left">
+          <summary class="cursor-pointer text-sm text-sky-300 hover:underline">More</summary>
+          <ul class="mt-2 space-y-1 text-sm text-slate-300">
+            <li class="list-disc ml-5">Exploratory analysis across large sales datasets</li>
+            <li class="list-disc ml-5">Explainability outputs (e.g., SHAP concepts)</li>
+            <li class="list-disc ml-5">Notebook-driven reporting</li>
+          </ul>
+        </details>
+      </article>
+
+      <!-- 2 -->
+      <article class="text-center">
+        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-sky-300">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" class="opacity-90" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19V5" /><path d="M8 19V9" /><path d="M12 19V12" /><path d="M16 19V7" /><path d="M20 19V10" />
+          </svg>
+        </div>
+
+        <h3 class="mt-4 font-semibold">Business Intelligence</h3>
+        <p class="mt-2 text-sm text-slate-300">
+          KPI storytelling with dashboards, drilldowns, and decision-ready reporting.
+        </p>
+
+        <ul class="mt-3 space-y-2 text-sm text-slate-300">
+          <li class="list-disc ml-5 text-left">Power BI dashboards for trends and performance</li>
+          <li class="list-disc ml-5 text-left">MySQL + DAX reporting workflows</li>
+        </ul>
+
+        <details class="mt-3 inline-block text-left">
+          <summary class="cursor-pointer text-sm text-sky-300 hover:underline">More</summary>
+          <ul class="mt-2 space-y-1 text-sm text-slate-300">
+            <li class="list-disc ml-5">KPI definitions and reporting structure</li>
+            <li class="list-disc ml-5">Global market analysis (Fusion Bikes BI)</li>
+            <li class="list-disc ml-5">Executive-friendly views and insights</li>
+          </ul>
+        </details>
+      </article>
+
+      <!-- 3 -->
+      <article class="text-center">
+        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-sky-300">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" class="opacity-90" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3l9 4.5-9 4.5-9-4.5L12 3Z" />
+            <path d="M3 10.5V17l9 4.5 9-4.5v-6.5" />
+          </svg>
+        </div>
+
+        <h3 class="mt-4 font-semibold">Leadership & Operations</h3>
+        <p class="mt-2 text-sm text-slate-300">
+          Team coordination, event execution, and community leadership across student organizations.
+        </p>
+
+        <ul class="mt-3 space-y-2 text-sm text-slate-300">
+          <li class="list-disc ml-5 text-left">Vice President — APU Bangladesh Society</li>
+          <li class="list-disc ml-5 text-left">Sports Secretary — Bangladesh Student Org (Malaysia)</li>
+        </ul>
+
+        <details class="mt-3 inline-block text-left">
+          <summary class="cursor-pointer text-sm text-sky-300 hover:underline">More</summary>
+          <ul class="mt-2 space-y-1 text-sm text-slate-300">
+            <li class="list-disc ml-5">Cultural Night hosted (≈1000 attendees)</li>
+            <li class="list-disc ml-5">Inter-university futsal tournament (16 teams)</li>
+            <li class="list-disc ml-5">Iftar program organized (≈100 attendees)</li>
+          </ul>
+        </details>
+      </article>
+    </div>
+
+    <div class="mt-8 text-center">
+      <a class="text-sm text-sky-400 hover:underline" href="/about">Read more about me →</a>
     </div>
   </section>
 
