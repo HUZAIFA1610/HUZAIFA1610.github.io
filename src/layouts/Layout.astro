@@ -77,6 +77,147 @@ const {
 
       </div>
     </footer>
+    <dialog
+      id="lightbox"
+      class="backdrop:bg-black/80 rounded-2xl border border-white/10 bg-slate-950 text-slate-100 w-[min(1100px,94vw)]"
+    >
+      <div class="p-4 sm:p-5">
+        <div class="flex items-center justify-between gap-4">
+          <div class="text-sm text-slate-300">
+            <span class="text-slate-400">Screenshot</span>
+            <span id="lb-count" class="ml-2 text-slate-300"></span>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button
+              id="lb-prev"
+              type="button"
+              class="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-slate-200 hover:bg-white/5"
+            >
+              Prev
+            </button>
+            <button
+              id="lb-next"
+              type="button"
+              class="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-slate-200 hover:bg-white/5"
+            >
+              Next
+            </button>
+            <button
+              id="lb-close"
+              type="button"
+              class="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-slate-200 hover:bg-white/5"
+            >
+            Close
+            </button>
+          </div>
+        </div>
+
+        <figure class="mt-4">
+          <img
+            id="lb-img"
+            class="w-full rounded-xl border border-white/10 bg-black/30 object-contain"
+            style="max-height: 74vh;"
+            alt="Expanded screenshot"
+          />
+          <figcaption id="lb-caption" class="mt-3 text-sm text-slate-300"></figcaption>
+        </figure>
+      </div>
+    </dialog>
+
+    <script>
+      // Lightbox: click any image with data-lightbox="true" to open
+      const dlg = document.getElementById("lightbox");
+      const imgEl = document.getElementById("lb-img");
+      const capEl = document.getElementById("lb-caption");
+      const countEl = document.getElementById("lb-count");
+
+      const btnPrev = document.getElementById("lb-prev");
+      const btnNext = document.getElementById("lb-next");
+      const btnClose = document.getElementById("lb-close");
+
+      let images = [];
+      let index = 0;
+
+      function setLightbox(i) {
+        index = (i + images.length) % images.length;
+        const item = images[index];
+
+        imgEl.src = item.src;
+        imgEl.alt = item.alt || "Screenshot";
+        capEl.textContent = item.caption || "";
+        countEl.textContent = `${index + 1} / ${images.length}`;
+      }
+
+      function openLightbox(i) {
+        if (!dlg || !imgEl) return;
+        setLightbox(i);
+        dlg.showModal();
+      }
+
+      function closeLightbox() {
+        if (!dlg) return;
+        dlg.close();
+      }
+
+      function next() {
+        if (!images.length) return;
+        setLightbox(index + 1);
+      }
+
+      function prev() {
+        if (!images.length) return;
+        setLightbox(index - 1);
+      }
+
+      // Collect images on the current page
+      function refreshImages() {
+        images = Array.from(document.querySelectorAll('img[data-lightbox="true"]')).map((el) => ({
+          src: el.getAttribute("src"),
+          alt: el.getAttribute("alt"),
+          caption: el.getAttribute("data-caption") || "",
+        }));
+      }
+
+      // Attach click handlers
+      function bind() {
+        refreshImages();
+
+        document.querySelectorAll('img[data-lightbox="true"]').forEach((el) => {
+          el.style.cursor = "zoom-in";
+          el.addEventListener("click", () => {
+            refreshImages();
+            const currentSrc = el.getAttribute("src");
+            const i = Math.max(0, images.findIndex((x) => x.src === currentSrc));
+            openLightbox(i);
+          });
+        });
+      }
+
+      // Run once on page load
+      bind();
+
+      btnNext?.addEventListener("click", next);
+      btnPrev?.addEventListener("click", prev);
+      btnClose?.addEventListener("click", closeLightbox);
+
+      // Close when clicking outside the dialog box
+      dlg?.addEventListener("click", (e) => {
+        const rect = dlg.getBoundingClientRect();
+        const inDialog =
+          rect.top <= e.clientY && e.clientY <= rect.bottom && rect.left <= e.clientX && e.clientX <= rect.right;
+        if (!inDialog) closeLightbox();
+      });
+
+      // Keyboard controls
+      document.addEventListener("keydown", (e) => {
+        if (!dlg?.open) return;
+        if (e.key === "Escape") closeLightbox();
+        if (e.key === "ArrowRight") next();
+        if (e.key === "ArrowLeft") prev();
+      });
+    </script>
+    
     <script>
       // Scroll reveal (uses IntersectionObserver, respects prefers-reduced-motion via CSS)
       const items = Array.from(document.querySelectorAll("[data-reveal]"));

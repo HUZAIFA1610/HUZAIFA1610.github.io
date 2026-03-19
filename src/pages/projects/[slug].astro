@@ -154,6 +154,8 @@ const cs = caseStudies[slug] ?? null;
                     <img
                       src={s.src}
                       alt={s.alt}
+                      data-lightbox="true"
+                      data-caption={s.caption ?? ""}
                       class="h-full w-full object-cover opacity-90"
                       loading="lazy"
                       onerror="this.onerror=null;this.src='/images/placeholder.svg';"
