@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { projects } from "../data/projects";
+import { caseStudies } from "../data/caseStudies";
 
 // Sort: featured first, then category, then title
 const sortedProjects = [...projects].sort((a, b) => {
@@ -15,6 +16,22 @@ const sortedProjects = [...projects].sort((a, b) => {
 });
 const featuredProjects = sortedProjects.filter((p) => p.featured);
 const gridProjects = sortedProjects.filter((p) => !p.featured);
+const allForPreview = sortedProjects; // includes featured + non-featured
+const previewData = Object.fromEntries(
+  allForPreview.map((p) => [
+    p.slug,
+    {
+      slug: p.slug,
+      title: p.title,
+      category: p.category,
+      dataset: p.dataset,
+      oneLiner: p.oneLiner,
+      coverImage: p.coverImage,
+      repoUrl: p.repoUrl,
+      screenshots: (caseStudies[p.slug]?.screenshots ?? []).map((s) => s.src),
+    },
+  ])
+);
 const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.category)))];
 ---
 
@@ -180,6 +197,14 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
             Case study →
           </a>
 
+          <button
+            type="button"
+            class="text-sm text-slate-300 hover:text-white"
+            data-preview-slug={p.slug}
+          >
+            Preview →
+          </button>
+
           {p.demoUrl ? (
             <a class="text-sm text-slate-300 hover:text-white" href={p.demoUrl} target="_blank" rel="noopener noreferrer">
               Live demo →
@@ -205,6 +230,63 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
     </p>
   </div>
 
+  <dialog
+    id="projects-quickview"
+    class="backdrop:bg-black/70 rounded-2xl border border-white/10 bg-slate-950 text-slate-100 w-[min(900px,92vw)]"
+  >
+    <div class="p-5 sm:p-6">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <div id="pqv-meta" class="text-xs text-slate-400"></div>
+          <h3 id="pqv-title" class="mt-2 text-2xl font-semibold"></h3>
+          <p id="pqv-desc" class="mt-2 text-slate-300"></p>
+        </div>
+
+        <button
+          id="pqv-close"
+          type="button"
+          class="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-slate-200 hover:bg-white/5"
+        >
+          Close
+        </button>
+      </div>
+
+      <div class="mt-5 grid gap-3 sm:grid-cols-2">
+        <img
+          id="pqv-img-1"
+          class="aspect-[16/9] w-full rounded-xl border border-white/10 object-cover bg-black/30"
+          alt="Preview screenshot 1"
+          onerror="this.onerror=null;this.src='/images/placeholder.svg';"
+        />
+        <img
+          id="pqv-img-2"
+          class="aspect-[16/9] w-full rounded-xl border border-white/10 object-cover bg-black/30"
+          alt="Preview screenshot 2"
+          onerror="this.onerror=null;this.src='/images/placeholder.svg';"
+        />
+      </div>
+
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a
+          id="pqv-case"
+          class="rounded-lg bg-sky-400 px-4 py-2 text-sm font-semibold text-slate-950 hover:opacity-90"
+          href="#"
+        >
+          Open case study
+        </a>
+
+        <a
+          id="pqv-github"
+          class="rounded-lg border border-white/10 px-4 py-2 text-sm text-slate-100 hover:bg-white/5"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View on GitHub
+        </a>
+      </div>
+    </div>
+  </dialog>
 
   <script is:inline>
     /** @type {HTMLElement|null} */
@@ -324,4 +406,125 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
       });
     }
   </script>
+
+  <script is:inline define:vars={{ previewData }}>
+    const data = previewData;
+
+    /** @type {HTMLDialogElement|null} */
+    const dlg = document.getElementById("projects-quickview");
+    /** @type {HTMLButtonElement|null} */
+    const closeBtn = document.getElementById("pqv-close");
+
+    /** @type {HTMLElement|null} */
+    const metaEl = document.getElementById("pqv-meta");
+    /** @type {HTMLElement|null} */
+    const titleEl = document.getElementById("pqv-title");
+    /** @type {HTMLElement|null} */
+    const descEl = document.getElementById("pqv-desc");
+
+    /** @type {HTMLImageElement|null} */
+    const img1 = document.getElementById("pqv-img-1");
+    /** @type {HTMLImageElement|null} */
+    const img2 = document.getElementById("pqv-img-2");
+
+    /** @type {HTMLAnchorElement|null} */
+    const caseLink = document.getElementById("pqv-case");
+    /** @type {HTMLAnchorElement|null} */
+    const githubLink = document.getElementById("pqv-github");
+
+    /** @param {string} slug */
+    function openPreview(slug) {
+      const p = data[slug];
+      if (!p || !dlg) return;
+
+      if (metaEl) metaEl.textContent = `${p.category} • ${p.dataset}`;
+      if (titleEl) titleEl.textContent = p.title;
+      if (descEl) descEl.textContent = p.oneLiner;
+
+      const shots = (p.screenshots && p.screenshots.length ? p.screenshots : [p.coverImage]).slice(0, 2);
+      if (img1) img1.src = shots[0] || "/images/placeholder.svg";
+      if (img2) img2.src = shots[1] || shots[0] || "/images/placeholder.svg";
+
+      if (caseLink) caseLink.href = `/projects/${p.slug}`;
+      if (githubLink) githubLink.href = p.repoUrl || "#";
+
+      dlg.showModal();
+    }
+
+    document.querySelectorAll("[data-preview-slug]").forEach((btn) => {
+      btn.addEventListener("click", () => openPreview(btn.getAttribute("data-preview-slug") || ""));
+    });
+
+    closeBtn?.addEventListener("click", () => dlg?.close());
+
+    dlg?.addEventListener("click", (e) => {
+      const rect = dlg.getBoundingClientRect();
+      const inDialog =
+        rect.top <= e.clientY && e.clientY <= rect.bottom && rect.left <= e.clientX && e.clientX <= rect.right;
+      if (!inDialog) dlg.close();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (!dlg || !dlg.open) return;
+      if (e.key === "Escape") dlg.close();
+    });
+  </script>
+
+  <!-- <dialog
+    id="projects-quickview"
+    class="backdrop:bg-black/70 rounded-2xl border border-white/10 bg-slate-950 text-slate-100 w-[min(900px,92vw)]"
+  >
+    <div class="p-5 sm:p-6">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <div id="pqv-meta" class="text-xs text-slate-400"></div>
+          <h3 id="pqv-title" class="mt-2 text-2xl font-semibold"></h3>
+          <p id="pqv-desc" class="mt-2 text-slate-300"></p>
+        </div>
+
+        <button
+          id="pqv-close"
+          type="button"
+          class="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-slate-200 hover:bg-white/5"
+        >
+          Close
+        </button>
+      </div>
+
+      <div class="mt-5 grid gap-3 sm:grid-cols-2">
+        <img
+          id="pqv-img-1"
+          class="aspect-[16/9] w-full rounded-xl border border-white/10 object-cover bg-black/30"
+          alt="Preview screenshot 1"
+          onerror="this.onerror=null;this.src='/images/placeholder.svg';"
+        />
+        <img
+          id="pqv-img-2"
+          class="aspect-[16/9] w-full rounded-xl border border-white/10 object-cover bg-black/30"
+          alt="Preview screenshot 2"
+          onerror="this.onerror=null;this.src='/images/placeholder.svg';"
+        />
+      </div>
+
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a
+          id="pqv-case"
+          class="rounded-lg bg-sky-400 px-4 py-2 text-sm font-semibold text-slate-950 hover:opacity-90"
+          href="#"
+        >
+          Open case study
+        </a>
+
+        <a
+          id="pqv-github"
+          class="rounded-lg border border-white/10 px-4 py-2 text-sm text-slate-100 hover:bg-white/5"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View on GitHub
+        </a>
+      </div>
+    </div>
+  </dialog> -->
 </Layout>
