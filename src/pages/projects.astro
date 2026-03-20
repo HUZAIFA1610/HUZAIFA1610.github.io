@@ -14,7 +14,7 @@ const sortedProjects = [...projects].sort((a, b) => {
   return a.title.localeCompare(b.title);
 });
 const featuredProjects = sortedProjects.filter((p) => p.featured);
-
+const gridProjects = sortedProjects.filter((p) => !p.featured);
 const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.category)))];
 ---
 
@@ -126,7 +126,7 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
   <div class="mt-8 border-t border-white/30"></div>
 
   <div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-    {sortedProjects.map((p) => (
+    {gridProjects.map((p) => (
       <article
         class="group rounded-2xl p-2 transition hover:bg-white/5"
         data-category={p.category}
@@ -190,15 +190,29 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
   </div>
 
 
-  <script>
+  <script is:inline>
+    /** @type {HTMLElement|null} */
     const filtersEl = document.getElementById("project-filters");
-    const buttons = filtersEl ? Array.from(filtersEl.querySelectorAll("button[data-filter]")) : [];
+
+    /** @type {HTMLButtonElement[]} */
+    const buttons = filtersEl ? Array.from(filtersEl.querySelectorAll('button[data-filter]')) : [];
+
+    /** @type {HTMLElement[]} */
     const cards = Array.from(document.querySelectorAll("article[data-category]"));
+
+    /** @type {HTMLInputElement|null} */
     const searchInput = document.getElementById("project-search");
+
+    /** @type {HTMLButtonElement|null} */
     const clearBtn = document.getElementById("clear-search");
+
+    /** @type {HTMLElement|null} */
     const countEl = document.getElementById("project-count");
+
+    /** @type {HTMLElement|null} */
     const noResultsEl = document.getElementById("no-results");
 
+    /** @param {string} value */
     function setActiveButton(value) {
       for (const btn of buttons) {
         const isActive = btn.dataset.filter === value;
@@ -208,6 +222,7 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
       }
     }
 
+    /** @returns {{cat: string, q: string}} */
     function getState() {
       const url = new URL(window.location.href);
       const cat = url.searchParams.get("cat") || "All";
@@ -215,6 +230,7 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
       return { cat, q };
     }
 
+    /** @param {{cat: string, q: string}} state */
     function setState({ cat, q }) {
       const url = new URL(window.location.href);
 
@@ -227,6 +243,7 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
       window.history.replaceState({}, "", url);
     }
 
+    /** @param {{cat: string, q: string}} state */
     function applyFilters({ cat, q }) {
       const selectedCat = cat || "All";
       const query = (q || "").trim().toLowerCase();
@@ -242,7 +259,6 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
 
         const show = matchCat && matchQ;
         card.style.display = show ? "" : "none";
-
         if (show) shown += 1;
       }
 
@@ -252,12 +268,12 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
       if (noResultsEl) noResultsEl.classList.toggle("hidden", shown !== 0);
     }
 
-    // Initial load from URL
+    // Init from URL
     const initial = getState();
     if (searchInput) searchInput.value = initial.q;
     applyFilters(initial);
 
-    // Filter button click
+    // Category clicks
     for (const btn of buttons) {
       btn.addEventListener("click", () => {
         const next = { ...getState(), cat: btn.dataset.filter || "All" };
@@ -266,11 +282,13 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
       });
     }
 
-    // Search typing (small debounce)
+    /** @type {ReturnType<typeof setTimeout> | undefined} */
     let t;
+
+    // Search typing (debounced)
     if (searchInput) {
       searchInput.addEventListener("input", () => {
-        clearTimeout(t);
+        if (t) clearTimeout(t);
         t = setTimeout(() => {
           const next = { ...getState(), q: searchInput.value || "" };
           setState(next);
@@ -279,7 +297,7 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
       });
     }
 
-    // Clear search button
+    // Clear search
     if (clearBtn && searchInput) {
       clearBtn.addEventListener("click", () => {
         searchInput.value = "";

@@ -207,12 +207,20 @@ const cs = caseStudies[slug] ?? null;
       </aside>
     </div>
 
-    <script>
-      // Active section highlighting for TOC (desktop)
+    <script is:inline>
+      /** @type {HTMLAnchorElement[]} */
       const tocLinks = Array.from(document.querySelectorAll(".toc-link"));
-      const sectionIds = tocLinks.map((a) => a.getAttribute("href")?.replace("#", "")).filter(Boolean);
-      const sections = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
 
+      const sectionIds = tocLinks
+        .map((a) => a.getAttribute("href")?.slice(1))
+        .filter((x) => typeof x === "string" && x.length > 0);
+
+      /** @type {HTMLElement[]} */
+      const sections = sectionIds
+        .map((id) => document.getElementById(id))
+        .filter((el) => el instanceof HTMLElement);
+
+      /** @param {string} id */
       function setActive(id) {
         tocLinks.forEach((a) => {
           const isActive = a.getAttribute("href") === `#${id}`;
@@ -230,14 +238,13 @@ const cs = caseStudies[slug] ?? null;
               .filter((e) => e.isIntersecting)
               .sort((a, b) => (a.boundingClientRect.top ?? 0) - (b.boundingClientRect.top ?? 0))[0];
 
-            if (visible?.target?.id) setActive(visible.target.id);
+            const id = visible?.target && "id" in visible.target ? visible.target.id : "";
+            if (id) setActive(id);
           },
           { threshold: 0.2, rootMargin: "-20% 0px -65% 0px" }
         );
 
         sections.forEach((s) => io.observe(s));
-
-        // initial highlight
         setActive(sections[0].id);
       }
     </script>

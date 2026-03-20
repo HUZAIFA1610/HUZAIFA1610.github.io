@@ -541,7 +541,7 @@ const previewData = Object.fromEntries(
     </div>
   </dialog>
 
-  <script define:vars={{ previewData }}>
+  <script is:inline define:vars={{ previewData }}>
     const data = previewData;
 
     const dlg = document.getElementById("quickview");
