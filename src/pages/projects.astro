@@ -129,8 +129,9 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
     </div>
 
     <div class="text-sm text-slate-300 pt-1">
-      <span class="text-slate-400">Showing:</span>
+      <span class="text-slate-400">Grid:</span>
       <span id="project-count">0</span>
+      <span class="text-slate-500 ml-2">(Featured shown above: {featuredProjects.length})</span>
     </div>
   </div>
 
@@ -149,7 +150,7 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
 
   <div class="mt-8 border-t border-white/30"></div>
 
-  <div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+  <div id="projects-grid" class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
     {gridProjects.map((p) => (
       <article
         class="group rounded-2xl p-2 transition hover:bg-white/5 flex flex-col h-full"
@@ -296,7 +297,7 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
     const buttons = filtersEl ? Array.from(filtersEl.querySelectorAll('button[data-filter]')) : [];
 
     /** @type {HTMLElement[]} */
-    const cards = Array.from(document.querySelectorAll("article[data-category]"));
+    const cards = Array.from(document.querySelectorAll("#projects-grid article[data-category]"));
 
     /** @type {HTMLInputElement|null} */
     const searchInput = document.getElementById("project-search");
