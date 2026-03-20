@@ -69,7 +69,6 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
 
               <div class="p-4">
                 <div class="flex items-center justify-between gap-3">
-                  <div class="text-xs text-slate-300">{p.category} • {p.dataset}</div>
                   {p.proof?.length ? (
                     <div class="mt-3 flex flex-wrap gap-2">
                       {p.proof.slice(0, 3).map((tag) => (
@@ -79,6 +78,7 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
                       ))}
                     </div>
                   ) : null}
+                  <div class="text-xs text-slate-300">{p.category} • {p.dataset}</div>
                   <span class="text-[11px] rounded-full border border-sky-400/30 bg-sky-400/10 px-2 py-1 text-sky-200">
                     Featured
                   </span>
@@ -469,62 +469,4 @@ const categories = ["All", ...Array.from(new Set(sortedProjects.map((p) => p.cat
       if (e.key === "Escape") dlg.close();
     });
   </script>
-
-  <!-- <dialog
-    id="projects-quickview"
-    class="backdrop:bg-black/70 rounded-2xl border border-white/10 bg-slate-950 text-slate-100 w-[min(900px,92vw)]"
-  >
-    <div class="p-5 sm:p-6">
-      <div class="flex items-start justify-between gap-4">
-        <div>
-          <div id="pqv-meta" class="text-xs text-slate-400"></div>
-          <h3 id="pqv-title" class="mt-2 text-2xl font-semibold"></h3>
-          <p id="pqv-desc" class="mt-2 text-slate-300"></p>
-        </div>
-
-        <button
-          id="pqv-close"
-          type="button"
-          class="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-slate-200 hover:bg-white/5"
-        >
-          Close
-        </button>
-      </div>
-
-      <div class="mt-5 grid gap-3 sm:grid-cols-2">
-        <img
-          id="pqv-img-1"
-          class="aspect-[16/9] w-full rounded-xl border border-white/10 object-cover bg-black/30"
-          alt="Preview screenshot 1"
-          onerror="this.onerror=null;this.src='/images/placeholder.svg';"
-        />
-        <img
-          id="pqv-img-2"
-          class="aspect-[16/9] w-full rounded-xl border border-white/10 object-cover bg-black/30"
-          alt="Preview screenshot 2"
-          onerror="this.onerror=null;this.src='/images/placeholder.svg';"
-        />
-      </div>
-
-      <div class="mt-6 flex flex-wrap gap-3">
-        <a
-          id="pqv-case"
-          class="rounded-lg bg-sky-400 px-4 py-2 text-sm font-semibold text-slate-950 hover:opacity-90"
-          href="#"
-        >
-          Open case study
-        </a>
-
-        <a
-          id="pqv-github"
-          class="rounded-lg border border-white/10 px-4 py-2 text-sm text-slate-100 hover:bg-white/5"
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          View on GitHub
-        </a>
-      </div>
-    </div>
-  </dialog> -->
 </Layout>

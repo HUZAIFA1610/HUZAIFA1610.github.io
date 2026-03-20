@@ -67,7 +67,7 @@ export const projects: Project[] = [
     dataset: "10M rows",
     metrics: ["Interactive KPI dashboard", "DAX measures for performance gaps & opportunities"],
     stack: ["MySQL", "Power BI", "DAX"],
-    proof: ["Dashboard", "SQL", "DAX"],
+    proof: ["Dynamic Dashboard", "SQL", "DAX"],
     coverImage: "/images/fusion-bikes-bi/fusion-bike-bi-cover.png",
     repoUrl: "https://github.com/HUZAIFA1610/BI-Analysis-for-Motorbikes",
     featured: true,
