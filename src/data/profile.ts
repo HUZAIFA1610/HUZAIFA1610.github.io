@@ -12,10 +12,10 @@ export const profile = {
     linkedin: "https://www.linkedin.com/in/mohammad-abu-huzaifa-b98314279/",
     booking: "https://calendly.com/huzaifanafiz6/30min",
   },
-  coreTools: ["Python", "Power BI", "SQL", "MySQL", "R", "FastAPI", "Streamlit", "Excel"],
+  coreTools: ["Python", "Jupyter Notebook", "Power BI", "SQL", "MySQL", "R", "FastAPI", "Streamlit", "Excel"],
   stats: [
     { label: "Projects", value: "10+" },
-    { label: "Largest dataset", value: "2.82M" },
+    { label: "Largest dataset", value: "11.83M" },
     { label: "Dashboards", value: "Power BI" },
   ],
 } as const;
