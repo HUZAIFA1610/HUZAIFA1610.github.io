@@ -6,86 +6,199 @@ const {
   title = "Mohammad Abu Huzaifa | Data Analyst",
   description = "Data Analyst portfolio: dashboards, analytics, and data-driven systems.",
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? "https://huzaifa1610.github.io/");
+const ogImage = new URL("images/og.png", Astro.site ?? "https://huzaifa1610.github.io/").href;
+
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/projects", label: "Projects" },
+  { href: "/about", label: "About" },
+  { href: "/skills", label: "Skills" },
+  { href: "/resume", label: "Resume" },
+  { href: "/contact", label: "Contact" },
+];
+
+// Determine active nav link
+const currentPath = Astro.url.pathname;
+function isActive(href: string) {
+  if (href === "/") return currentPath === "/";
+  return currentPath.startsWith(href);
+}
 ---
 
 <!doctype html>
-<html lang="en" class="h-full">
+<html lang="en" class="h-full scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <!-- Primary SEO -->
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="author" content="Mohammad Abu Huzaifa" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#020617" />
+    <link rel="canonical" href={canonicalURL.href} />
 
+    <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={Astro.url.href} />
-    <meta property="og:image" content={`${Astro.site?.href ?? "https://huzaifa1610.github.io/"}images/og.png`} />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Mohammad Abu Huzaifa | Data Analyst" />
 
+    <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={`${Astro.site?.href ?? "https://huzaifa1610.github.io/"}images/og.png`} />
+    <meta name="twitter:image" content={ogImage} />
 
+    <!-- Structured Data: Person schema -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Mohammad Abu Huzaifa",
+      "url": "https://huzaifa1610.github.io/",
+      "email": profile.email,
+      "jobTitle": "Data Analyst",
+      "sameAs": [
+        profile.links.linkedin,
+        profile.links.github,
+      ],
+      "knowsAbout": ["Data Analysis", "Business Intelligence", "Power BI", "Python", "SQL", "Machine Learning"],
+    })} />
 
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   </head>
 
   <body class="min-h-full bg-slate-950 text-slate-100 antialiased selection:bg-sky-400/30 selection:text-white">
+
+    <!-- ═══════════════════ HEADER ═══════════════════ -->
     <header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/80 backdrop-blur supports-[backdrop-filter]:bg-slate-950/70">
-      <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
-        <a href="/" class="font-semibold tracking-tight">
-          {profile.name}
+      <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between gap-4">
+
+        <!-- Logo -->
+        <a href="/" class="font-semibold tracking-tight shrink-0">
+          {profile.name.split(" ").slice(-1)[0]}
           <span class="text-sky-400">.</span>
         </a>
 
-
-        <nav class="flex flex-wrap items-center gap-3 sm:gap-4 text-sm text-slate-300">
-          <a class="hover:text-white" href="/">Home</a>
-          <a class="hover:text-white" href="/projects">Projects</a>
-          <a class="hover:text-white" href="/about">About</a>
-          <a class="hover:text-white" href="/skills">Skills</a>
-          <a class="hover:text-white" href="/resume">Resume</a>
-          <a class="hover:text-white" href="/contact">Contact</a>
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex items-center gap-1 text-sm text-slate-300" aria-label="Main navigation">
+          {navLinks.map(({ href, label }) => (
+            <a
+              href={href}
+              class={[
+                "rounded-lg px-3 py-1.5 transition-colors",
+                isActive(href)
+                  ? "bg-white/10 text-white font-medium"
+                  : "hover:text-white hover:bg-white/5",
+              ].join(" ")}
+              aria-current={isActive(href) ? "page" : undefined}
+            >
+              {label}
+            </a>
+          ))}
         </nav>
-        <a
-          class="rounded-lg bg-sky-400 px-3 py-1.5 text-sm font-semibold text-slate-950 hover:opacity-90"
-          href="/resume.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Download CV
-        </a>
 
+        <div class="flex items-center gap-2">
+          <!-- Download CV (desktop) -->
+          <a
+            class="hidden sm:inline-flex rounded-lg bg-sky-400 px-3 py-1.5 text-sm font-semibold text-slate-950 hover:opacity-90 transition-opacity"
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Download CV
+          </a>
+
+          <!-- Mobile hamburger -->
+          <button
+            id="menu-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+            aria-label="Toggle navigation menu"
+            class="md:hidden flex flex-col justify-center items-center w-9 h-9 rounded-lg border border-white/10 bg-white/5 gap-1.5 hover:bg-white/10 transition-colors"
+          >
+            <span class="menu-bar block h-0.5 w-5 bg-slate-300 rounded transition-all duration-300"></span>
+            <span class="menu-bar block h-0.5 w-5 bg-slate-300 rounded transition-all duration-300"></span>
+            <span class="menu-bar block h-0.5 w-5 bg-slate-300 rounded transition-all duration-300"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden border-t border-white/10 bg-slate-950/95 backdrop-blur"
+        aria-label="Mobile navigation"
+      >
+        <nav class="mx-auto max-w-6xl px-4 py-4 flex flex-col gap-1">
+          {navLinks.map(({ href, label }) => (
+            <a
+              href={href}
+              class={[
+                "rounded-lg px-3 py-2.5 text-sm transition-colors",
+                isActive(href)
+                  ? "bg-white/10 text-white font-medium"
+                  : "text-slate-300 hover:text-white hover:bg-white/5",
+              ].join(" ")}
+              aria-current={isActive(href) ? "page" : undefined}
+            >
+              {label}
+            </a>
+          ))}
+          <a
+            class="mt-2 rounded-lg bg-sky-400 px-3 py-2.5 text-sm font-semibold text-slate-950 hover:opacity-90 text-center transition-opacity"
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Download CV
+          </a>
+        </nav>
       </div>
     </header>
 
+    <!-- ═══════════════════ MAIN ═══════════════════ -->
     <main class="mx-auto max-w-6xl px-4 py-12 sm:py-14">
       <slot />
     </main>
 
+    <!-- Back to top -->
     <button
       id="back-to-top"
       type="button"
-      class="hidden fixed bottom-6 right-6 z-50 rounded-full border border-white/10 bg-slate-950/80 backdrop-blur px-4 py-3 text-sm text-slate-200 hover:bg-white/5"
+      class="hidden fixed bottom-6 right-6 z-50 rounded-full border border-white/10 bg-slate-950/80 backdrop-blur px-4 py-3 text-sm text-slate-200 hover:bg-white/5 transition-colors"
       aria-label="Back to top"
     >
       ↑ Top
     </button>
 
+    <!-- ═══════════════════ FOOTER ═══════════════════ -->
     <footer class="border-t border-white/10">
-      <div class="mx-auto max-w-6xl px-4 py-6 text-sm text-slate-400 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-        <p>© {new Date().getFullYear()} Mohammad Abu Huzaifa</p>
-        <div class="flex gap-4">
-          <a class="hover:text-white" href={`mailto:${profile.email}`}>Email</a>
-          <a class="hover:text-white" href={profile.links.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a class="hover:text-white" href={profile.links.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+      <div class="mx-auto max-w-6xl px-4 py-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p class="text-sm font-medium text-slate-200">{profile.name}</p>
+          <p class="mt-0.5 text-xs text-slate-500">Data Analyst · Open to roles</p>
         </div>
-
+        <div class="flex gap-4 text-sm text-slate-400">
+          <a class="hover:text-white transition-colors" href={`mailto:${profile.email}`}>Email</a>
+          <a class="hover:text-white transition-colors" href={profile.links.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a class="hover:text-white transition-colors" href={profile.links.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+        <p class="text-xs text-slate-600">© {new Date().getFullYear()} Mohammad Abu Huzaifa</p>
       </div>
     </footer>
+
+    <!-- ═══════════════════ LIGHTBOX ═══════════════════ -->
     <dialog
       id="lightbox"
       class="backdrop:bg-black/80 rounded-2xl border border-white/10 bg-slate-950 text-slate-100 w-[min(1100px,94vw)]"
@@ -96,127 +209,102 @@ const {
             <span class="text-slate-400">Screenshot</span>
             <span id="lb-count" class="ml-2 text-slate-300"></span>
           </div>
-
           <div class="flex items-center gap-2">
-            <button
-              id="lb-prev"
-              type="button"
-              class="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-slate-200 hover:bg-white/5"
-            >
-              Prev
-            </button>
-            <button
-              id="lb-next"
-              type="button"
-              class="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-slate-200 hover:bg-white/5"
-            >
-              Next
-            </button>
-            <button
-              id="lb-close"
-              type="button"
-              class="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-slate-200 hover:bg-white/5"
-            >
-            Close
-            </button>
+            <button id="lb-prev" type="button" class="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-slate-200 hover:bg-white/5">Prev</button>
+            <button id="lb-next" type="button" class="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-slate-200 hover:bg-white/5">Next</button>
+            <button id="lb-close" type="button" class="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-slate-200 hover:bg-white/5">Close</button>
           </div>
         </div>
-
         <figure class="mt-4">
-          <img
-            id="lb-img"
-            class="w-full rounded-xl border border-white/10 bg-black/30 object-contain"
-            style="max-height: 74vh;"
-            alt="Expanded screenshot"
-          />
+          <img id="lb-img" class="w-full rounded-xl border border-white/10 bg-black/30 object-contain" style="max-height: 74vh;" alt="Expanded screenshot" />
           <figcaption id="lb-caption" class="mt-3 text-sm text-slate-300"></figcaption>
         </figure>
       </div>
     </dialog>
 
+    <!-- ═══════════════════ SCRIPTS ═══════════════════ -->
+
+    <!-- Mobile menu toggle -->
     <script is:inline>
-      // Lightbox: click any image with data-lightbox="true" to open
-      /** @typedef {{src:string, alt?:string, caption?:string}} LightboxItem */
+      const toggle = document.getElementById("menu-toggle");
+      const menu = document.getElementById("mobile-menu");
+      const bars = toggle?.querySelectorAll(".menu-bar");
 
-      /** @type {HTMLDialogElement|null} */
+      toggle?.addEventListener("click", () => {
+        const isOpen = menu?.classList.toggle("hidden") === false;
+        toggle.setAttribute("aria-expanded", String(!isOpen));
+
+        if (bars) {
+          const [b1, b2, b3] = Array.from(bars);
+          if (!isOpen) {
+            // closed state
+            b1?.classList.remove("rotate-45", "translate-y-2");
+            b2?.classList.remove("opacity-0");
+            b3?.classList.remove("-rotate-45", "-translate-y-2");
+          } else {
+            // open state — show X
+            b1?.classList.add("rotate-45", "translate-y-2");
+            b2?.classList.add("opacity-0");
+            b3?.classList.add("-rotate-45", "-translate-y-2");
+          }
+        }
+      });
+
+      // Close mobile menu on link click
+      menu?.querySelectorAll("a").forEach((a) => {
+        a.addEventListener("click", () => {
+          menu.classList.add("hidden");
+          toggle?.setAttribute("aria-expanded", "false");
+        });
+      });
+    </script>
+
+    <!-- Lightbox -->
+    <script is:inline>
       const dlg = document.getElementById("lightbox");
-      /** @type {HTMLImageElement|null} */
       const imgEl = document.getElementById("lb-img");
-      /** @type {HTMLElement|null} */
       const capEl = document.getElementById("lb-caption");
-      /** @type {HTMLElement|null} */
       const countEl = document.getElementById("lb-count");
-
-      /** @type {HTMLButtonElement|null} */
       const btnPrev = document.getElementById("lb-prev");
-      /** @type {HTMLButtonElement|null} */
       const btnNext = document.getElementById("lb-next");
-      /** @type {HTMLButtonElement|null} */
       const btnClose = document.getElementById("lb-close");
 
-      /** @type {LightboxItem[]} */
       let images = [];
       let index = 0;
 
-      /** @param {number} i */
       function setLightbox(i) {
         if (!imgEl || !images.length) return;
-
         index = (i + images.length) % images.length;
         const item = images[index];
-
         imgEl.src = item.src;
         imgEl.alt = item.alt || "Screenshot";
-
         if (capEl) capEl.textContent = item.caption || "";
         if (countEl) countEl.textContent = `${index + 1} / ${images.length}`;
       }
 
-      /** @param {number} i */
       function openLightbox(i) {
-        if (!dlg || !imgEl) return;
-        if (!images.length) return;
+        if (!dlg || !imgEl || !images.length) return;
         setLightbox(i);
         dlg.showModal();
       }
 
-      function closeLightbox() {
-        if (!dlg) return;
-        dlg.close();
-      }
-
-      function next() {
-        if (!images.length) return;
-        setLightbox(index + 1);
-      }
-
-      function prev() {
-        if (!images.length) return;
-        setLightbox(index - 1);
-      }
+      function closeLightbox() { dlg?.close(); }
+      function next() { if (images.length) setLightbox(index + 1); }
+      function prev() { if (images.length) setLightbox(index - 1); }
 
       function refreshImages() {
-        /** @type {NodeListOf<HTMLImageElement>} */
         const els = document.querySelectorAll('img[data-lightbox="true"]');
-
-        images = Array.from(els)
-          .map((el) => ({
-            src: el.getAttribute("src") || "",
-            alt: el.getAttribute("alt") || "",
-            caption: el.getAttribute("data-caption") || "",
-          }))
-          .filter((x) => x.src.length > 0);
+        images = Array.from(els).map((el) => ({
+          src: el.getAttribute("src") || "",
+          alt: el.getAttribute("alt") || "",
+          caption: el.getAttribute("data-caption") || "",
+        })).filter((x) => x.src.length > 0);
       }
 
       function bind() {
         refreshImages();
-
-        /** @type {NodeListOf<HTMLImageElement>} */
-        const els = document.querySelectorAll('img[data-lightbox="true"]');
-
-        els.forEach((el) => {
+        document.querySelectorAll('img[data-lightbox="true"]').forEach((el) => {
           el.style.cursor = "zoom-in";
-
           el.addEventListener("click", () => {
             refreshImages();
             const currentSrc = el.getAttribute("src") || "";
@@ -227,31 +315,25 @@ const {
       }
 
       bind();
-
       btnNext?.addEventListener("click", next);
       btnPrev?.addEventListener("click", prev);
       btnClose?.addEventListener("click", closeLightbox);
-
       dlg?.addEventListener("click", (e) => {
         const rect = dlg.getBoundingClientRect();
-        const inDialog =
-          rect.top <= e.clientY && e.clientY <= rect.bottom && rect.left <= e.clientX && e.clientX <= rect.right;
+        const inDialog = rect.top <= e.clientY && e.clientY <= rect.bottom && rect.left <= e.clientX && e.clientX <= rect.right;
         if (!inDialog) closeLightbox();
       });
-
       document.addEventListener("keydown", (e) => {
-        if (!dlg || !dlg.open) return;
+        if (!dlg?.open) return;
         if (e.key === "Escape") closeLightbox();
         if (e.key === "ArrowRight") next();
         if (e.key === "ArrowLeft") prev();
       });
     </script>
-    
-    <script>
-      // Scroll reveal (uses IntersectionObserver, respects prefers-reduced-motion via CSS)
-      const items = Array.from(document.querySelectorAll("[data-reveal]"));
 
-      // If browser doesn't support IntersectionObserver, just show everything
+    <!-- Scroll reveal -->
+    <script>
+      const items = Array.from(document.querySelectorAll("[data-reveal]"));
       if (!("IntersectionObserver" in window)) {
         items.forEach((el) => el.classList.add("is-visible"));
       } else {
@@ -260,19 +342,17 @@ const {
             for (const entry of entries) {
               if (entry.isIntersecting) {
                 entry.target.classList.add("is-visible");
-                io.unobserve(entry.target); // reveal once
+                io.unobserve(entry.target);
               }
             }
           },
-          {
-            threshold: 0.12,
-            rootMargin: "0px 0px -10% 0px",
-          }
+          { threshold: 0.12, rootMargin: "0px 0px -10% 0px" }
         );
-
         items.forEach((el) => io.observe(el));
       }
     </script>
+
+    <!-- Back to top -->
     <script is:inline>
       const btn = document.getElementById("back-to-top");
 
@@ -282,24 +362,15 @@ const {
 
       function updateVisibility() {
         if (!btn) return;
-
-        // Only show on case-study pages
-        if (!isCaseStudyPage()) {
-          btn.classList.add("hidden");
-          return;
-        }
-
-        // Show only after scrolling down a bit
+        if (!isCaseStudyPage()) { btn.classList.add("hidden"); return; }
         if (window.scrollY > 550) btn.classList.remove("hidden");
         else btn.classList.add("hidden");
       }
 
       updateVisibility();
       window.addEventListener("scroll", updateVisibility, { passive: true });
-
-      btn?.addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
+      btn?.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
     </script>
+
   </body>
 </html>

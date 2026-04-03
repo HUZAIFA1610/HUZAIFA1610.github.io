@@ -15,6 +15,7 @@ const previewData = Object.fromEntries(
       dataset: p.dataset,
       oneLiner: p.oneLiner,
       coverImage: p.coverImage,
+      repoUrl: p.repoUrl,
       screenshots: (caseStudies[p.slug]?.screenshots ?? []).map((s) => s.src),
     },
   ])
@@ -23,21 +24,25 @@ const previewData = Object.fromEntries(
 
 <Layout
   title={`${profile.name} | Data Analyst`}
-    description={profile.tagline}
-  >
+  description={profile.tagline}
+>
+
+  <!-- ══════════════════════════════════════════════
+       HERO
+  ══════════════════════════════════════════════ -->
   <section class="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-10">
-    <!-- subtle corporate glow -->
     <div class="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-sky-400/15 blur-3xl"></div>
     <div class="pointer-events-none absolute -bottom-28 -left-28 h-72 w-72 rounded-full bg-indigo-400/10 blur-3xl"></div>
 
     <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
-      <!-- LEFT: text -->
+      <!-- Text -->
       <div>
         <div class="flex flex-wrap items-center gap-2">
           <span class="text-xs rounded-full border border-sky-400/30 bg-sky-400/10 px-3 py-1 text-sky-200">
             {profile.roleLine}
           </span>
-          <span class="text-xs rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-300">
+          <span class="inline-flex items-center gap-1.5 text-xs rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-emerald-300">
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
             Open to roles
           </span>
           <span class="text-xs rounded-full border border-white/10 bg-white/5 px-3 py-1 text-slate-300">
@@ -45,33 +50,32 @@ const previewData = Object.fromEntries(
           </span>
         </div>
 
-        <h1 class="mt-4 text-4xl sm:text-5xl font-semibold tracking-tight">
-          BI & Predictive Insights for Real-World Decisions.
+        <h1 class="mt-5 text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.1]">
+          BI & Predictive Insights<br class="hidden sm:block" />
+          <span class="text-sky-400">for Real-World Decisions.</span>
         </h1>
 
-        <p class="mt-4 text-slate-300 max-w-2xl leading-relaxed">
+        <p class="mt-5 text-slate-300 max-w-xl leading-relaxed">
           {profile.tagline}
         </p>
 
-        <div class="mt-7 flex flex-wrap gap-3">
+        <div class="mt-8 flex flex-wrap gap-3">
           <a
-            class="rounded-lg bg-sky-400 text-slate-950 px-4 py-2 text-sm font-semibold hover:opacity-90"
+            class="rounded-lg bg-sky-400 text-slate-950 px-5 py-2.5 text-sm font-semibold hover:opacity-90 transition-opacity"
             href="/projects"
           >
             View Projects
           </a>
-
           <a
-            class="rounded-lg border border-white/10 px-4 py-2 text-sm text-slate-100 hover:bg-white/5"
+            class="rounded-lg border border-white/15 px-5 py-2.5 text-sm text-slate-100 hover:bg-white/5 transition-colors"
             href="/resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
           >
             Download CV
           </a>
-
           <a
-            class="rounded-lg border border-white/10 px-4 py-2 text-sm text-slate-100 hover:bg-white/5"
+            class="rounded-lg border border-white/15 px-5 py-2.5 text-sm text-slate-100 hover:bg-white/5 transition-colors"
             href="/contact"
           >
             Contact
@@ -79,16 +83,15 @@ const previewData = Object.fromEntries(
         </div>
       </div>
 
-      <!-- RIGHT: headshot -->
+      <!-- Headshot -->
       <div class="flex justify-center lg:justify-end">
         <div class="relative">
           <div class="absolute -inset-2 rounded-[28px] bg-gradient-to-br from-sky-400/25 via-white/0 to-indigo-400/20 blur"></div>
-
           <div class="relative overflow-hidden rounded-[28px] border border-white/10 bg-black/20 p-2">
             <img
               src={profile.headshot}
               alt={`${profile.name} headshot`}
-              class="h-[420px] w-[340px] object-cover rounded-[22px]"
+              class="h-[400px] w-[320px] object-cover rounded-[22px]"
               loading="eager"
               onerror="this.onerror=null;this.src='/images/placeholder.svg';"
             />
@@ -99,140 +102,103 @@ const previewData = Object.fromEntries(
   </section>
 
 
+  <!-- ══════════════════════════════════════════════
+       STATS BAR
+  ══════════════════════════════════════════════ -->
+  <section class="mt-8" data-reveal>
+    <div class="rounded-2xl border border-white/10 overflow-hidden">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 divide-y divide-white/10 sm:divide-y-0 lg:divide-x lg:divide-y-0 sm:[&>*:nth-child(-n+2)]:border-b sm:[&>*:nth-child(-n+2)]:border-white/10">
 
-  <section class="mt-12" data-reveal>
-    <div class="rounded-2xl border border-white/10">
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 divide-y divide-white/20 lg:divide-y-0 lg:divide-x">
-
-        <div class="p-5">
-          <div class="text-sm text-slate-400">Projects</div>
-          <div class="mt-2 inline-flex items-center gap-2 text-sm text-slate-200">
-            <div class="mt-1 text-2xl font-semibold tracking-tight stat" data-target="10">0</div>
-          </div>
+        <div class="p-6">
+          <div class="text-xs uppercase tracking-widest text-slate-500">Projects</div>
+          <div class="mt-2 text-3xl font-semibold tracking-tight stat" data-target="10">0</div>
         </div>
 
-        <div class="p-5">
-          <div class="text-sm text-slate-400">Largest Dataset</div>
-          <div class="mt-2 inline-flex items-center gap-2 text-sm text-slate-200">
-            <div class="mt-1 text-2xl font-semibold tracking-tight stat" data-target="11830000">0</div>
-          </div>
+        <div class="p-6">
+          <div class="text-xs uppercase tracking-widest text-slate-500">Largest Dataset</div>
+          <div class="mt-2 text-3xl font-semibold tracking-tight stat" data-target="11830000">0</div>
         </div>
 
-        <div class="p-5">
-          <div class="text-sm text-slate-400">Dashboards</div>
-          <div class="mt-2 inline-flex items-center gap-2 text-sm text-slate-200">
-            <div class="mt-1 text-2xl font-semibold tracking-tight stats"> Power BI</div>
-          </div>
+        <div class="p-6">
+          <div class="text-xs uppercase tracking-widest text-slate-500">Dashboards</div>
+          <div class="mt-2 text-3xl font-semibold tracking-tight text-slate-100">Power BI</div>
         </div>
 
-        <div class="p-5">
-          <div class="text-sm text-slate-400">Status</div>
-          <div class="mt-2 inline-flex items-center gap-2 text-lg font-semibold text-slate-200 stats">
-            <span class="h-2 w-2 rounded-full bg-sky-400"></span>
+        <div class="p-6">
+          <div class="text-xs uppercase tracking-widest text-slate-500">Status</div>
+          <div class="mt-2 flex items-center gap-2 text-base font-semibold text-slate-100">
+            <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
             Open to Data Analyst roles
           </div>
         </div>
+
       </div>
     </div>
-    <div class="mt-16 border-t border-white/30"></div>
+    <div class="mt-16 border-t border-white/10"></div>
   </section>
 
 
-
+  <!-- ══════════════════════════════════════════════
+       EXPERIENCE
+  ══════════════════════════════════════════════ -->
   <section class="mt-20" data-reveal>
     <div class="rounded-3xl border border-white/10 bg-slate-900/40 backdrop-blur-sm p-8 sm:p-10">
       <div class="text-center">
         <h2 class="text-2xl font-semibold tracking-tight">Experience</h2>
-        <p class="mt-2 text-slate-300">
-          A quick snapshot of applied analytics work and leadership — optimized for fast scanning.
+        <p class="mt-2 text-slate-400 max-w-xl mx-auto text-sm">
+          Applied analytics work and leadership — optimized for fast scanning.
         </p>
       </div>
 
-      <div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        <!-- 1 -->
-        <article class="group text-center rounded-2xl border border-white/10 bg-white/5 p-6 transition duration-300 hover:-translate-y-1 hover:border-sky-400/25 hover:bg-white/10">
-          <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-sky-300 transition duration-300 group-hover:scale-110 group-hover:border-sky-400/30 group-hover:shadow-lg group-hover:shadow-sky-400/10">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" class="opacity-90" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 19V5" /><path d="M4 19H20" />
-              <path d="M8 15l2-2 3 3 5-6" />
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
+        <!-- Analytics -->
+        <article class="group rounded-2xl border border-white/10 bg-white/5 p-6 transition duration-300 hover:-translate-y-1 hover:border-sky-400/25 hover:bg-white/8">
+          <div class="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-sky-300 transition duration-300 group-hover:scale-110 group-hover:border-sky-400/30 group-hover:shadow-lg group-hover:shadow-sky-400/10">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19V5" /><path d="M4 19H20" /><path d="M8 15l2-2 3 3 5-6" />
             </svg>
           </div>
-
-          <h3 class="mt-4 font-semibold">Applied Analytics Projects</h3>
-          <p class="mt-2 text-sm text-slate-300">
-            End-to-end analysis and decision support for real datasets and operational workflows.
-          </p>
-
-          <ul class="mt-3 space-y-2 text-sm text-slate-300">
-            <li class="list-disc ml-5 text-left">Predictive maintenance + risk monitoring workflows</li>
-            <li class="list-disc ml-5 text-left">Fraud detection evaluation + threshold trade-offs</li>
+          <h3 class="mt-4 font-semibold">Applied Analytics</h3>
+          <p class="mt-2 text-sm text-slate-400">End-to-end analysis and decision support for real datasets and operational workflows.</p>
+          <ul class="mt-4 space-y-2 text-sm text-slate-300">
+            <li class="flex gap-2"><span class="text-sky-400 shrink-0">→</span> Predictive maintenance + risk monitoring</li>
+            <li class="flex gap-2"><span class="text-sky-400 shrink-0">→</span> Fraud detection + threshold trade-offs</li>
+            <li class="flex gap-2"><span class="text-sky-400 shrink-0">→</span> EDA across large sales datasets</li>
           </ul>
-
-          <details class="mt-3 inline-block text-left">
-            <summary class="cursor-pointer text-sm text-sky-300 transition group-hover:text-sky-200 hover:underline">More</summary>
-            <ul class="mt-2 space-y-1 text-sm text-slate-300">
-              <li class="list-disc ml-5">Exploratory analysis across large sales datasets</li>
-              <li class="list-disc ml-5">Explainability outputs (e.g., SHAP concepts)</li>
-              <li class="list-disc ml-5">Notebook-driven reporting</li>
-            </ul>
-          </details>
         </article>
 
-        <!-- 2 -->
-        <article class="group text-center rounded-2xl border border-white/10 bg-white/5 p-6 transition duration-300 hover:-translate-y-1 hover:border-sky-400/25 hover:bg-white/10">
-          <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-sky-300 transition duration-300 group-hover:scale-110 group-hover:border-sky-400/30 group-hover:shadow-lg group-hover:shadow-sky-400/10">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" class="opacity-90" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <!-- BI -->
+        <article class="group rounded-2xl border border-white/10 bg-white/5 p-6 transition duration-300 hover:-translate-y-1 hover:border-sky-400/25 hover:bg-white/8">
+          <div class="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-sky-300 transition duration-300 group-hover:scale-110 group-hover:border-sky-400/30 group-hover:shadow-lg group-hover:shadow-sky-400/10">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 19V5" /><path d="M8 19V9" /><path d="M12 19V12" /><path d="M16 19V7" /><path d="M20 19V10" />
             </svg>
           </div>
-
           <h3 class="mt-4 font-semibold">Business Intelligence</h3>
-          <p class="mt-2 text-sm text-slate-300">
-            KPI storytelling with dashboards, drilldowns, and decision-ready reporting.
-          </p>
-
-          <ul class="mt-3 space-y-2 text-sm text-slate-300">
-            <li class="list-disc ml-5 text-left">Power BI dashboards for trends and performance</li>
-            <li class="list-disc ml-5 text-left">MySQL + DAX reporting workflows</li>
+          <p class="mt-2 text-sm text-slate-400">KPI storytelling with dashboards, drilldowns, and decision-ready reporting.</p>
+          <ul class="mt-4 space-y-2 text-sm text-slate-300">
+            <li class="flex gap-2"><span class="text-sky-400 shrink-0">→</span> Power BI dashboards for trends</li>
+            <li class="flex gap-2"><span class="text-sky-400 shrink-0">→</span> MySQL + DAX reporting workflows</li>
+            <li class="flex gap-2"><span class="text-sky-400 shrink-0">→</span> Global market analysis (Fusion Bikes)</li>
           </ul>
-
-          <details class="mt-3 inline-block text-left">
-            <summary class="cursor-pointer text-sm text-sky-300 transition group-hover:text-sky-200 hover:underline">More</summary>
-            <ul class="mt-2 space-y-1 text-sm text-slate-300">
-              <li class="list-disc ml-5">KPI definitions and reporting structure</li>
-              <li class="list-disc ml-5">Global market analysis (Fusion Bikes BI)</li>
-              <li class="list-disc ml-5">Executive-friendly views and insights</li>
-            </ul>
-          </details>
         </article>
 
-        <!-- 3 -->
-        <article class="group text-center rounded-2xl border border-white/10 bg-white/5 p-6 transition duration-300 hover:-translate-y-1 hover:border-sky-400/25 hover:bg-white/10">
-          <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-sky-300 transition duration-300 group-hover:scale-110 group-hover:border-sky-400/30 group-hover:shadow-lg group-hover:shadow-sky-400/10">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" class="opacity-90" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Leadership -->
+        <article class="group rounded-2xl border border-white/10 bg-white/5 p-6 transition duration-300 hover:-translate-y-1 hover:border-sky-400/25 hover:bg-white/8">
+          <div class="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-sky-300 transition duration-300 group-hover:scale-110 group-hover:border-sky-400/30 group-hover:shadow-lg group-hover:shadow-sky-400/10">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 3l9 4.5-9 4.5-9-4.5L12 3Z" />
               <path d="M3 10.5V17l9 4.5 9-4.5v-6.5" />
             </svg>
           </div>
-
           <h3 class="mt-4 font-semibold">Leadership & Operations</h3>
-          <p class="mt-2 text-sm text-slate-300">
-            Team coordination, event execution, and community leadership across student organizations.
-          </p>
-
-          <ul class="mt-3 space-y-2 text-sm text-slate-300">
-            <li class="list-disc ml-5 text-left">Vice President — APU Bangladesh Society</li>
-            <li class="list-disc ml-5 text-left">Sports Secretary — Bangladesh Student Org (Malaysia)</li>
+          <p class="mt-2 text-sm text-slate-400">Team coordination, event execution, and community leadership.</p>
+          <ul class="mt-4 space-y-2 text-sm text-slate-300">
+            <li class="flex gap-2"><span class="text-sky-400 shrink-0">→</span> VP — APU Bangladesh Society</li>
+            <li class="flex gap-2"><span class="text-sky-400 shrink-0">→</span> Sports Secretary — Bangladesh Org (MY)</li>
+            <li class="flex gap-2"><span class="text-sky-400 shrink-0">→</span> Cultural Night ≈ 1,000 attendees</li>
           </ul>
-
-          <details class="mt-3 inline-block text-left">
-            <summary class="cursor-pointer text-sm text-sky-300 transition group-hover:text-sky-200 hover:underline">More</summary>
-            <ul class="mt-2 space-y-1 text-sm text-slate-300">
-              <li class="list-disc ml-5">Cultural Night hosted (≈1000 attendees)</li>
-              <li class="list-disc ml-5">Inter-university futsal tournament (16 teams)</li>
-              <li class="list-disc ml-5">Iftar program organized (≈100 attendees)</li>
-            </ul>
-          </details>
         </article>
       </div>
 
@@ -240,786 +206,349 @@ const previewData = Object.fromEntries(
         <a class="text-sm text-sky-400 hover:underline" href="/about">Read more about me →</a>
       </div>
     </div>
-    <div class="mt-16 border-t border-white/30"></div>
+    <div class="mt-16 border-t border-white/10"></div>
   </section>
 
 
-
+  <!-- ══════════════════════════════════════════════
+       FEATURED PROJECTS
+  ══════════════════════════════════════════════ -->
   <section class="mt-20" data-reveal>
-    <div class="text-center">
-      <h2 class="text-2xl font-semibold tracking-tight">Areas of Interest</h2>
-      <p class="mt-2 text-slate-300">
-        What I can deliver in a Data Analyst role — clean insights, clear reporting, and decision support.
-      </p>
-    </div>
-
-    <div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      <!-- 1 -->
-      <article class="text-center">
-        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-sky-300">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" class="opacity-90" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 19V5" /><path d="M4 19H20" />
-            <path d="M8 15l2-2 3 3 5-6" />
-          </svg>
-        </div>
-        <h3 class="mt-4 font-semibold">BI Dashboard Development</h3>
-        <p class="mt-2 text-sm text-slate-300">
-          Power BI dashboards with KPI storytelling, drill-down analysis, and executive-ready views.
-        </p>
-
-        <details class="mt-3 inline-block text-left">
-          <summary class="cursor-pointer text-sm text-sky-300 hover:underline">Deliverables</summary>
-          <ul class="mt-2 space-y-1 text-sm text-slate-300">
-            <li class="list-disc ml-5">KPI dashboard pages</li>
-            <li class="list-disc ml-5">DAX measures + drilldowns</li>
-            <li class="list-disc ml-5">Insights summary</li>
-          </ul>
-        </details>
-      </article>
-
-      <!-- 2 -->
-      <article class="text-center">
-        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-sky-300">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" class="opacity-90" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 6h18" /><path d="M7 12h10" /><path d="M10 18h4" />
-          </svg>
-        </div>
-        <h3 class="mt-4 font-semibold">Data Cleaning & Analysis</h3>
-        <p class="mt-2 text-sm text-slate-300">
-          EDA, trend analysis, segmentation, and insight generation using Python/R.
-        </p>
-
-        <details class="mt-3 inline-block text-left">
-          <summary class="cursor-pointer text-sm text-sky-300 hover:underline">Deliverables</summary>
-          <ul class="mt-2 space-y-1 text-sm text-slate-300">
-            <li class="list-disc ml-5">Cleaned dataset + notebook</li>
-            <li class="list-disc ml-5">Key insights + charts</li>
-            <li class="list-disc ml-5">Recommendations</li>
-          </ul>
-        </details>
-      </article>
-
-      <!-- 3 -->
-      <article class="text-center">
-        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-sky-300">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" class="opacity-90" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2v6" /><path d="M12 16v6" />
-            <path d="M4.9 4.9l4.2 4.2" /><path d="M14.9 14.9l4.2 4.2" />
-            <path d="M2 12h6" /><path d="M16 12h6" />
-            <path d="M4.9 19.1l4.2-4.2" /><path d="M14.9 9.1l4.2-4.2" />
-          </svg>
-        </div>
-        <h3 class="mt-4 font-semibold">Predictive Analytics</h3>
-        <p class="mt-2 text-sm text-slate-300">
-          Model prototypes, evaluation trade-offs, and interpretable outputs for decisions.
-        </p>
-
-        <details class="mt-3 inline-block text-left">
-          <summary class="cursor-pointer text-sm text-sky-300 hover:underline">Deliverables</summary>
-          <ul class="mt-2 space-y-1 text-sm text-slate-300">
-            <li class="list-disc ml-5">Model comparison</li>
-            <li class="list-disc ml-5">Explainability summary</li>
-            <li class="list-disc ml-5">Deployment-ready outputs</li>
-          </ul>
-        </details>
-      </article>
-
-      <!-- 4 -->
-      <article class="text-center">
-        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-sky-300">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" class="opacity-90" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 19V5" /><path d="M8 19V9" /><path d="M12 19V12" /><path d="M16 19V7" /><path d="M20 19V10" />
-          </svg>
-        </div>
-        <h3 class="mt-4 font-semibold">KPI Reporting</h3>
-        <p class="mt-2 text-sm text-slate-300">
-          Structured reporting for monitoring performance, gaps, and opportunities.
-        </p>
-
-        <details class="mt-3 inline-block text-left">
-          <summary class="cursor-pointer text-sm text-sky-300 hover:underline">Deliverables</summary>
-          <ul class="mt-2 space-y-1 text-sm text-slate-300">
-            <li class="list-disc ml-5">KPI definitions</li>
-            <li class="list-disc ml-5">Monthly/weekly reporting</li>
-            <li class="list-disc ml-5">Actionable insights</li>
-          </ul>
-        </details>
-      </article>
-
-      <!-- 5 -->
-      <article class="text-center">
-        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-sky-300">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" class="opacity-90" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 7c0-2 4-3 8-3s8 1 8 3-4 3-8 3-8-1-8-3Z" />
-            <path d="M4 7v10c0 2 4 3 8 3s8-1 8-3V7" />
-            <path d="M4 12c0 2 4 3 8 3s8-1 8-3" />
-          </svg>
-        </div>
-        <h3 class="mt-4 font-semibold">SQL & Data Pipelines</h3>
-        <p class="mt-2 text-sm text-slate-300">
-          Querying, transformations, and dataset preparation for analytics and BI.
-        </p>
-
-        <details class="mt-3 inline-block text-left">
-          <summary class="cursor-pointer text-sm text-sky-300 hover:underline">Deliverables</summary>
-          <ul class="mt-2 space-y-1 text-sm text-slate-300">
-            <li class="list-disc ml-5">SQL queries / views</li>
-            <li class="list-disc ml-5">Clean tables for BI</li>
-            <li class="list-disc ml-5">Documentation</li>
-          </ul>
-        </details>
-      </article>
-
-      <!-- 6 -->
-      <article class="text-center">
-        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-sky-300">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" class="opacity-90" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 6h16v10H4z" />
-            <path d="M8 20h8" />
-            <path d="M10 16v4" />
-          </svg>
-        </div>
-        <h3 class="mt-4 font-semibold">Analytics Apps (FastAPI + Streamlit)</h3>
-        <p class="mt-2 text-sm text-slate-300">
-          Lightweight dashboards and APIs for internal tools, demos, and decision support.
-        </p>
-
-        <details class="mt-3 inline-block text-left">
-          <summary class="cursor-pointer text-sm text-sky-300 hover:underline">Deliverables</summary>
-          <ul class="mt-2 space-y-1 text-sm text-slate-300">
-            <li class="list-disc ml-5">Streamlit UI</li>
-            <li class="list-disc ml-5">FastAPI endpoints</li>
-            <li class="list-disc ml-5">Swagger docs</li>
-          </ul>
-        </details>
-      </article>
-    </div>
-
-    <div class="mt-8 text-center">
-      <a class="text-sm text-sky-400 hover:underline" href="/skills">View full skills →</a>
-    </div>
-    <div class="mt-16 border-t border-white/30"></div>
-  </section>
-
-
-
-  <section class="mt-16" data-reveal>
     <div class="flex items-end justify-between gap-4">
       <div>
-        <h2 class="text-2xl font-semibold tracking-tight">Projects</h2>
+        <h2 class="text-2xl font-semibold tracking-tight">Featured Projects</h2>
         <p class="mt-1 text-sm text-slate-400">Three high-impact case studies</p>
       </div>
-
-      <a class="text-sm text-sky-400 hover:underline" href="/projects">All projects →</a>
+      <a class="text-sm text-sky-400 hover:underline shrink-0" href="/projects">All projects →</a>
     </div>
 
-    <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {featured.map((p) => (
-        <article class="group rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-sky-400/10">
+        <article class="group relative rounded-xl border border-white/10 bg-white/5 hover:bg-white/8 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-sky-400/10">
           <div class="pointer-events-none absolute -inset-16 opacity-0 group-hover:opacity-100 transition duration-300">
             <div class="absolute inset-0 bg-sky-400/10 blur-3xl"></div>
           </div>
-          <div class="relative flex h-full flex-col">
-            <a href={`/projects/${p.slug}`} class="block">
-              <div class="aspect-[16/9] bg-black/30 overflow-hidden">
-                <img
-                  src={p.coverImage}
-                  alt={`${p.title} cover`}
-                  class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                  loading="lazy"
-                  onerror="this.onerror=null;this.src='/images/placeholder.svg';"
-                />
-              </div>
-
-              <div class="p-5 flex-1">
-                <div class="flex items-center justify-between gap-3">
-                  <div class="text-xs text-slate-400">{p.category} • {p.dataset}</div>
-                  {p.proof?.length ? (
-                    <div class="mt-3 flex flex-wrap gap-2">
-                      {p.proof.slice(0, 3).map((tag) => (
-                        <span class="text-[11px] rounded-full border border-white/10 bg-white/5 px-2 py-1 text-slate-300">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  ) : null}
-                  <span class="text-[11px] rounded-full border border-sky-400/30 bg-sky-400/10 px-2 py-1 text-sky-200">
-                    Featured
-                  </span>
-                </div>
-
-                <div class="mt-2 font-semibold">{p.title}</div>
-                <div class="mt-2 text-sm text-slate-300">{p.oneLiner}</div>
-              </div>
-            </a>
-
-            <div class="px-5 pb-5 flex gap-3 mt-auto">
-              <a class="rounded-lg bg-sky-400 text-slate-950 px-4 py-2 text-sm font-semibold
-                transition duration-200
-                hover:scale-105 hover:shadow-lg hover:shadow-sky-400/30
-                active:scale-95" href={`/projects/${p.slug}`}>
-                Case study →
-              </a>
-
-              <button
-                type="button"
-                class="text-sm text-slate-300 hover:text-white"
-                data-preview-slug={p.slug}
-              >
-                Preview →
-              </button>
-
-              <a class="rounded-lg bg-sky-400 text-slate-950 px-4 py-2 text-sm font-semibold
-                transition duration-200
-                hover:scale-105 hover:shadow-lg hover:shadow-sky-400/30
-                active:scale-95" href={p.repoUrl} target="_blank" rel="noopener noreferrer">
-                GitHub →
-              </a>
+          <!-- Cover image -->
+          <a href={`/projects/${p.slug}`} class="block">
+            <div class="aspect-[16/9] bg-black/30 overflow-hidden">
+              <img
+                src={p.coverImage}
+                alt={`${p.title} cover`}
+                class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                loading="lazy"
+                onerror="this.onerror=null;this.src='/images/placeholder.svg';"
+              />
             </div>
+          </a>
+
+          <!-- Card body -->
+          <div class="p-5 flex flex-col flex-1">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-xs text-slate-500">{p.category} · {p.dataset}</span>
+              <span class="shrink-0 text-[10px] rounded-full border border-sky-400/30 bg-sky-400/10 px-2 py-0.5 text-sky-300 font-medium">
+                Featured
+              </span>
+            </div>
+
+            <a href={`/projects/${p.slug}`} class="mt-2 font-semibold leading-snug hover:text-sky-300 transition-colors">
+              {p.title}
+            </a>
+            <p class="mt-2 text-sm text-slate-400 flex-1">{p.oneLiner}</p>
+
+            {p.proof?.length ? (
+              <div class="mt-3 flex flex-wrap gap-1.5">
+                {p.proof.slice(0, 3).map((tag) => (
+                  <span class="text-[10px] rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-slate-400">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            ) : null}
+          </div>
+
+          <!-- Card footer — clear primary / secondary CTA -->
+          <div class="px-5 pb-5 flex items-center gap-2 mt-auto">
+            <a
+              class="flex-1 text-center rounded-lg bg-sky-400 text-slate-950 px-4 py-2 text-sm font-semibold hover:opacity-90 transition-opacity"
+              href={`/projects/${p.slug}`}
+            >
+              Case study
+            </a>
+            <button
+              type="button"
+              class="rounded-lg border border-white/10 px-3 py-2 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-colors"
+              data-preview-slug={p.slug}
+              aria-label={`Quick preview: ${p.title}`}
+            >
+              Preview
+            </button>
+            <a
+              class="rounded-lg border border-white/10 px-3 py-2 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-colors"
+              href={p.repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View on GitHub"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="inline-block">
+                <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+              </svg>
+            </a>
           </div>
         </article>
       ))}
     </div>
-    <div class="mt-16 border-t border-white/30"></div>
+    <div class="mt-16 border-t border-white/10"></div>
   </section>
 
 
-
-  <section class="mt-14" data-reveal>
+  <!-- ══════════════════════════════════════════════
+       SKILLS
+  ══════════════════════════════════════════════ -->
+  <section class="mt-20" data-reveal>
     <div class="rounded-3xl border border-white/10 bg-gradient-to-br from-sky-400/5 via-slate-900/60 to-indigo-400/5 p-8 sm:p-10">
       <div class="text-center">
         <h2 class="text-2xl font-semibold tracking-tight">Skills</h2>
-        <p class="mt-2 text-slate-300">
+        <p class="mt-2 text-slate-400 text-sm max-w-lg mx-auto">
           A focused mix of analytics, BI, modeling, and delivery tools I use to turn data into decisions.
         </p>
       </div>
 
-      <div class="mt-10 grid gap-8 lg:grid-cols-2">
-        <!-- LEFT SUMMARY -->
+      <div class="mt-10 grid gap-6 lg:grid-cols-2">
+        <!-- Summary -->
         <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
           <h3 class="text-lg font-semibold">What I bring</h3>
-          <p class="mt-3 text-slate-300 leading-relaxed">
+          <p class="mt-3 text-sm text-slate-300 leading-relaxed">
             I work across data analysis, dashboarding, and predictive modeling to support business decisions.
             My approach combines technical execution with clear reporting and stakeholder-friendly storytelling.
           </p>
-
           <div class="mt-6 space-y-3 text-sm text-slate-300">
             <div class="flex items-start gap-3">
-              <span class="mt-1 h-2 w-2 rounded-full bg-sky-400"></span>
-              <span>BI dashboards, KPI storytelling, and reporting</span>
+              <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-sky-400 shrink-0"></span>
+              BI dashboards, KPI storytelling, and reporting
             </div>
             <div class="flex items-start gap-3">
-              <span class="mt-1 h-2 w-2 rounded-full bg-sky-400"></span>
-              <span>Data cleaning, EDA, segmentation, and insight generation</span>
+              <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-sky-400 shrink-0"></span>
+              Data cleaning, EDA, segmentation, and insight generation
             </div>
             <div class="flex items-start gap-3">
-              <span class="mt-1 h-2 w-2 rounded-full bg-sky-400"></span>
-              <span>Predictive modeling, evaluation, and decision support workflows</span>
+              <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-sky-400 shrink-0"></span>
+              Predictive modeling, evaluation, and decision support workflows
             </div>
           </div>
-        </div>
 
-        <!-- RIGHT: FOUR CARDS -->
-        <div class="grid gap-4 sm:grid-cols-2">
-          <article class="h-full rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:-translate-y-1 hover:border-sky-400/25 hover:bg-white/10 flex flex-col">
-            <h3 class="font-semibold">Analytics &amp; BI</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Power BI, dashboards, DAX, KPI reporting, and decision-ready visuals.
-            </p>
-
-            <div class="mt-4 flex-1 space-y-3 text-sm">
-              <div>
-                <div class="mb-1 flex justify-between">
-                  <span>Power BI</span>
-                  <span class="text-slate-400">Advanced</span>
-                </div>
-                <div class="h-2 overflow-hidden rounded-full bg-white/10">
-                  <div class="h-full w-[90%] bg-sky-400"></div>
-                </div>
-              </div>
-
-              <div>
-                <div class="mb-1 flex justify-between">
-                  <span>DAX</span>
-                  <span class="text-slate-400">Advanced</span>
-                </div>
-                <div class="h-2 overflow-hidden rounded-full bg-white/10">
-                  <div class="h-full w-[82%] bg-sky-400"></div>
-                </div>
-              </div>
-
-              <div>
-                <div class="mb-1 flex justify-between">
-                  <span>KPI Reporting</span>
-                  <span class="text-slate-400">Advanced</span>
-                </div>
-                <div class="h-2 overflow-hidden rounded-full bg-white/10">
-                  <div class="h-full w-[88%] bg-sky-400"></div>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <article class="h-full rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:-translate-y-1 hover:border-sky-400/25 hover:bg-white/10 flex flex-col">
-            <h3 class="font-semibold">Data Analysis</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              EDA, trend analysis, segmentation, and insight extraction with Python/R.
-            </p>
-
-            <div class="mt-4 flex-1 space-y-3 text-sm">
-              <div>
-                <div class="mb-1 flex justify-between">
-                  <span>Python</span>
-                  <span class="text-slate-400">Advanced</span>
-                </div>
-                <div class="h-2 overflow-hidden rounded-full bg-white/10">
-                  <div class="h-full w-[85%] bg-sky-400"></div>
-                </div>
-              </div>
-
-              <div>
-                <div class="mb-1 flex justify-between">
-                  <span>R</span>
-                  <span class="text-slate-400">Intermediate</span>
-                </div>
-                <div class="h-2 overflow-hidden rounded-full bg-white/10">
-                  <div class="h-full w-[68%] bg-sky-400"></div>
-                </div>
-              </div>
-
-              <div>
-                <div class="mb-1 flex justify-between">
-                  <span>EDA</span>
-                  <span class="text-slate-400">Advanced</span>
-                </div>
-                <div class="h-2 overflow-hidden rounded-full bg-white/10">
-                  <div class="h-full w-[87%] bg-sky-400"></div>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <article class="h-full rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:-translate-y-1 hover:border-sky-400/25 hover:bg-white/10 flex flex-col">
-            <h3 class="font-semibold">ML &amp; Modeling</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Predictive modeling, evaluation trade-offs, explainability, and deployment-ready outputs.
-            </p>
-
-            <div class="mt-4 flex-1 space-y-3 text-sm">
-              <div>
-                <div class="mb-1 flex justify-between">
-                  <span>Machine Learning</span>
-                  <span class="text-slate-400">Advanced</span>
-                </div>
-                <div class="h-2 overflow-hidden rounded-full bg-white/10">
-                  <div class="h-full w-[80%] bg-sky-400"></div>
-                </div>
-              </div>
-
-              <div>
-                <div class="mb-1 flex justify-between">
-                  <span>Deep Learning</span>
-                  <span class="text-slate-400">Intermediate</span>
-                </div>
-                <div class="h-2 overflow-hidden rounded-full bg-white/10">
-                  <div class="h-full w-[66%] bg-sky-400"></div>
-                </div>
-              </div>
-
-              <div>
-                <div class="mb-1 flex justify-between">
-                  <span>Explainability</span>
-                  <span class="text-slate-400">Intermediate</span>
-                </div>
-                <div class="h-2 overflow-hidden rounded-full bg-white/10">
-                  <div class="h-full w-[72%] bg-sky-400"></div>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <article class="h-full rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:-translate-y-1 hover:border-sky-400/25 hover:bg-white/10 flex flex-col">
-            <h3 class="font-semibold">Tools &amp; Delivery</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Python, Jupyter, Google Colab, FastAPI, Streamlit, Excel, Power BI, and MySQL.
-            </p>
-
-            <div class="mt-4 flex-1 space-y-3 text-sm">
-              <div>
-                <div class="mb-1 flex justify-between">
-                  <span>FastAPI</span>
-                  <span class="text-slate-400">Intermediate</span>
-                </div>
-                <div class="h-2 overflow-hidden rounded-full bg-white/10">
-                  <div class="h-full w-[70%] bg-sky-400"></div>
-                </div>
-              </div>
-
-              <div>
-                <div class="mb-1 flex justify-between">
-                  <span>Streamlit</span>
-                  <span class="text-slate-400">Advanced</span>
-                </div>
-                <div class="h-2 overflow-hidden rounded-full bg-white/10">
-                  <div class="h-full w-[78%] bg-sky-400"></div>
-                </div>
-              </div>
-
-              <div>
-                <div class="mb-1 flex justify-between">
-                  <span>MySQL</span>
-                  <span class="text-slate-400">Intermediate</span>
-                </div>
-                <div class="h-2 overflow-hidden rounded-full bg-white/10">
-                  <div class="h-full w-[72%] bg-sky-400"></div>
-                </div>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-
-      <div class="mt-8">
-        <div class="flex flex-wrap justify-center gap-2">
-          {profile.coreTools.map((tool) => (
-            <span class="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-slate-300">
-              {tool}
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  
-
-  <section class="mt-16" data-reveal>
-    <div class="rounded-3xl border border-white/10 bg-gradient-to-br from-indigo-400/5 via-slate-900/60 to-sky-400/5 p-8 sm:p-10">
-
-      <!-- Header -->
-      <div class="text-center">
-        <h2 class="text-2xl font-semibold tracking-tight">Highlights</h2>
-        <p class="mt-2 text-slate-300">
-          A quick snapshot of my strengths, tools, and impact metrics.
-        </p>
-      </div>
-
-      <!-- Cards -->
-      <div class="mt-10 grid gap-6 md:grid-cols-3">
-
-        <!-- 1. Focus -->
-        <article class="h-full flex flex-col rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:border-sky-400/30 hover:bg-white/10">
-          <h3 class="font-semibold text-lg">Focus</h3>
-
-          <ul class="mt-4 space-y-3 text-sm text-slate-300 flex-1">
-            <li class="flex gap-3">
-              <span class="mt-1 h-2 w-2 rounded-full bg-sky-400"></span>
-              BI dashboards & KPI storytelling
-            </li>
-            <li class="flex gap-3">
-              <span class="mt-1 h-2 w-2 rounded-full bg-sky-400"></span>
-              EDA, trend analysis, reporting
-            </li>
-            <li class="flex gap-3">
-              <span class="mt-1 h-2 w-2 rounded-full bg-sky-400"></span>
-              Decision-support workflows (API + UI)
-            </li>
-          </ul>
-        </article>
-
-        <!-- 2. Core Tools -->
-        <article class="h-full flex flex-col rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:border-sky-400/30 hover:bg-white/10">
-          <h3 class="font-semibold text-lg">Core Tools</h3>
-
-          <div class="mt-4 flex flex-wrap gap-2 flex-1">
+          <!-- Tool pills -->
+          <div class="mt-6 flex flex-wrap gap-2">
             {profile.coreTools.map((tool) => (
-              <span class="rounded-full border border-white/10 bg-black/20 px-5 py-1 text-xs text-slate-300">
+              <span class="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-slate-400">
                 {tool}
               </span>
             ))}
           </div>
-        </article>
+        </div>
 
-        <!-- 3. Quick Stats -->
-        <article class="h-full flex flex-col rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:border-sky-400/30 hover:bg-white/10">
-          <h3 class="font-semibold text-lg">Quick Stats</h3>
+        <!-- Skill bars -->
+        <div class="grid gap-4 sm:grid-cols-2">
+          {[
+            {
+              title: "Analytics & BI",
+              desc: "Power BI, dashboards, DAX, KPI reporting.",
+              skills: [{ name: "Power BI", pct: "90%", level: "Advanced" }, { name: "DAX", pct: "82%", level: "Advanced" }, { name: "KPI Reporting", pct: "88%", level: "Advanced" }],
+            },
+            {
+              title: "Data Analysis",
+              desc: "EDA, trend analysis, segmentation with Python/R.",
+              skills: [{ name: "Python", pct: "85%", level: "Advanced" }, { name: "R", pct: "68%", level: "Intermediate" }, { name: "EDA", pct: "87%", level: "Advanced" }],
+            },
+            {
+              title: "ML & Modeling",
+              desc: "Predictive modeling, evaluation, explainability.",
+              skills: [{ name: "Machine Learning", pct: "80%", level: "Advanced" }, { name: "Deep Learning", pct: "66%", level: "Intermediate" }, { name: "Explainability", pct: "72%", level: "Intermediate" }],
+            },
+            {
+              title: "Tools & Delivery",
+              desc: "FastAPI, Streamlit, MySQL, Jupyter.",
+              skills: [{ name: "FastAPI", pct: "70%", level: "Intermediate" }, { name: "Streamlit", pct: "78%", level: "Advanced" }, { name: "MySQL", pct: "72%", level: "Intermediate" }],
+            },
+          ].map((card) => (
+            <article class="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:-translate-y-1 hover:border-sky-400/25 hover:bg-white/8 flex flex-col">
+              <h3 class="font-semibold text-sm">{card.title}</h3>
+              <p class="mt-1 text-xs text-slate-400 mb-4">{card.desc}</p>
+              <div class="mt-auto space-y-3 text-xs">
+                {card.skills.map((s) => (
+                  <div>
+                    <div class="mb-1 flex justify-between">
+                      <span class="text-slate-200">{s.name}</span>
+                      <span class="text-slate-500">{s.level}</span>
+                    </div>
+                    <div class="h-1.5 overflow-hidden rounded-full bg-white/10">
+                      <div class={`h-full bg-sky-400 rounded-full`} style={`width:${s.pct}`}></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+    <div class="mt-16 border-t border-white/10"></div>
+  </section>
 
-          <div class="mt-4 grid grid-cols-3 gap-3 text-center flex-1">
-            <div class="rounded-xl border border-white/10 bg-black/20 p-3">
-              <div class="text-lg font-semibold">10+</div>
-              <div class="text-xs text-slate-400">Projects</div>
-            </div>
 
-            <div class="rounded-xl border border-white/10 bg-black/20 p-3">
-              <div class="text-lg font-semibold">11.83M</div>
-              <div class="text-xs text-slate-400">Largest dataset</div>
-            </div>
+  <!-- ══════════════════════════════════════════════
+       CONTACT CTA
+  ══════════════════════════════════════════════ -->
+  <section class="mt-16" data-reveal>
+    <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900 via-slate-950 to-sky-950/40 px-8 py-10 sm:px-10 sm:py-12 transition duration-300 hover:border-white/20">
+      <div class="pointer-events-none absolute inset-0">
+        <div class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-sky-400/10 blur-3xl"></div>
+        <div class="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-indigo-400/10 blur-3xl"></div>
+      </div>
 
-            <div class="rounded-xl border border-white/10 bg-black/20 p-3">
-              <div class="text-lg font-semibold">Power BI</div>
-              <div class="text-xs text-slate-400">Dashboards</div>
-            </div>
+      <div class="relative grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+        <div>
+          <p class="text-xs uppercase tracking-[0.25em] text-sky-300/80 font-medium">Contact</p>
+          <h2 class="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
+            Let's build something useful.
+          </h2>
+          <p class="mt-4 max-w-xl text-slate-300 text-sm leading-relaxed">
+            Open to Data Analyst roles, BI work, analytics projects, and meaningful collaboration.
+            I respond best to messages that include the role or project context.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <span class="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-sm text-emerald-300">
+              <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              Available for Data Analyst roles
+            </span>
+            <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300">
+              Based in Bangladesh
+            </span>
           </div>
+          <p class="mt-5 text-xs text-slate-500">Typical response time: 24–48 hours.</p>
+        </div>
 
-          <div class="mt-4 text-sm text-slate-300">
-            Want the details? Explore the 
-            <a href="/projects" class="text-sky-400 hover:underline">case studies</a>.
+        <div class="lg:border-l lg:border-white/10 lg:pl-10">
+          <div class="rounded-2xl border border-white/10 bg-white/5 divide-y divide-white/10 overflow-hidden">
+            {[
+              { label: "Email", display: profile.email, href: `mailto:${profile.email}` },
+              { label: "LinkedIn", display: "View profile", href: profile.links.linkedin },
+              { label: "GitHub", display: "View repositories", href: profile.links.github },
+              { label: "Resume", display: "Download CV", href: "/resume.pdf" },
+              { label: "Meeting", display: "Book a 15-min call", href: profile.links.booking },
+            ].map(({ label, display, href }) => (
+              <a
+                href={href}
+                target={href.startsWith("http") || href.endsWith(".pdf") ? "_blank" : undefined}
+                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                class="group flex items-center justify-between px-4 py-3.5 transition duration-200 hover:bg-white/5"
+              >
+                <span>
+                  <span class="block text-[10px] uppercase tracking-[0.2em] text-slate-500">{label}</span>
+                  <span class="mt-0.5 block text-sm text-slate-100">{display}</span>
+                </span>
+                <span class="text-sky-400 transition duration-200 group-hover:translate-x-1">↗</span>
+              </a>
+            ))}
           </div>
-        </article>
+        </div>
       </div>
     </div>
   </section>
 
 
-
-  <section class="mt-16" data-reveal>
-  <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900 via-slate-950 to-sky-950/40 px-8 py-10 sm:px-10 sm:py-12 transition duration-300 hover:border-white/20 hover:shadow-[0_24px_80px_rgba(2,6,23,0.45)]">
-    <div class="pointer-events-none absolute inset-0">
-      <div class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-sky-400/10 blur-3xl"></div>
-      <div class="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-indigo-400/10 blur-3xl"></div>
-    </div>
-
-    <div class="relative grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
-      <div>
-        <p class="text-sm uppercase tracking-[0.25em] text-sky-300/80">Contact</p>
-        <h2 class="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-          Let’s build something useful.
-        </h2>
-
-        <p class="mt-4 max-w-2xl text-slate-300 leading-relaxed">
-          Open to Data Analyst roles, BI work, analytics projects, and meaningful collaboration.
-          I prefer direct, concise communication and respond best to messages that include the role or project context.
-        </p>
-
-        <div class="mt-6 flex flex-wrap gap-3">
-          <span class="inline-flex items-center gap-2 rounded-full border border-sky-400/20 bg-sky-400/10 px-4 py-2 text-sm text-sky-200">
-            <span class="h-2 w-2 rounded-full bg-sky-400"></span>
-            Available for Data Analyst roles
-          </span>
-          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-200">
-            Based in Malaysia
-          </span>
-        </div>
-
-        <p class="mt-5 text-sm text-slate-400">
-          Typical response time: 24–48 hours.
-        </p>
-      </div>
-
-      <div class="lg:border-l lg:border-white/10 lg:pl-10">
-        <div class="rounded-2xl border border-white/10 bg-white/5 divide-y divide-white/10 overflow-hidden">
-          <a
-            href={`mailto:${profile.email}`}
-            class="group flex items-center justify-between px-4 py-4 transition duration-300 hover:bg-white/5"
-          >
-            <span>
-              <span class="block text-xs uppercase tracking-[0.2em] text-slate-400">Email</span>
-              <span class="mt-1 block text-base text-slate-100">{profile.email}</span>
-            </span>
-            <span class="text-sky-300 transition duration-300 group-hover:translate-x-1">↗</span>
-          </a>
-
-          <a
-            href={profile.links.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="group flex items-center justify-between px-4 py-4 transition duration-300 hover:bg-white/5"
-          >
-            <span>
-              <span class="block text-xs uppercase tracking-[0.2em] text-slate-400">LinkedIn</span>
-              <span class="mt-1 block text-base text-slate-100">View profile</span>
-            </span>
-            <span class="text-sky-300 transition duration-300 group-hover:translate-x-1">↗</span>
-          </a>
-
-          <a
-            href={profile.links.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="group flex items-center justify-between px-4 py-4 transition duration-300 hover:bg-white/5"
-          >
-            <span>
-              <span class="block text-xs uppercase tracking-[0.2em] text-slate-400">GitHub</span>
-              <span class="mt-1 block text-base text-slate-100">View repositories</span>
-            </span>
-            <span class="text-sky-300 transition duration-300 group-hover:translate-x-1">↗</span>
-          </a>
-
-          <a
-            href="/resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="group flex items-center justify-between px-4 py-4 transition duration-300 hover:bg-white/5"
-          >
-            <span>
-              <span class="block text-xs uppercase tracking-[0.2em] text-slate-400">Resume</span>
-              <span class="mt-1 block text-base text-slate-100">Download CV</span>
-            </span>
-            <span class="text-sky-300 transition duration-300 group-hover:translate-x-1">↗</span>
-          </a>
-
-          {
-            profile.links.booking &&
-            !profile.links.booking.includes("your-username") &&
-            !profile.links.booking.includes("example.com") ? (
-              <a
-                href={profile.links.booking}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="group flex items-center justify-between px-4 py-4 transition duration-300 hover:bg-white/5"
-              >
-                <span>
-                  <span class="block text-xs uppercase tracking-[0.2em] text-slate-400">Meeting</span>
-                  <span class="mt-1 block text-base text-slate-100">Book a 15-min call</span>
-                </span>
-                <span class="text-sky-300 transition duration-300 group-hover:translate-x-1">↗</span>
-              </a>
-            ) : null
-          }
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
+  <!-- ══════════════════════════════════════════════
+       QUICK-VIEW DIALOG
+  ══════════════════════════════════════════════ -->
   <dialog
     id="quickview"
     class="backdrop:bg-black/70 rounded-2xl border border-white/10 bg-slate-950 text-slate-100 w-[min(900px,92vw)]"
   >
     <div class="p-5 sm:p-6">
-        <div class="flex items-start justify-between gap-4">
+      <div class="flex items-start justify-between gap-4">
         <div>
-          <div id="qv-meta" class="text-xs text-slate-400"></div>
-          <h3 id="qv-title" class="mt-2 text-2xl font-semibold"></h3>
-          <p id="qv-desc" class="mt-2 text-slate-300"></p>
+          <div id="qv-meta" class="text-xs text-slate-500"></div>
+          <h3 id="qv-title" class="mt-2 text-xl font-semibold"></h3>
+          <p id="qv-desc" class="mt-2 text-sm text-slate-300"></p>
         </div>
-
-        <button
-          id="qv-close"
-          type="button"
-          class="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-slate-200 hover:bg-white/5"
-        >
+        <button id="qv-close" type="button" class="shrink-0 rounded-lg border border-white/10 px-3 py-1.5 text-sm text-slate-200 hover:bg-white/5">
           Close
         </button>
       </div>
-
       <div class="mt-5 grid gap-3 sm:grid-cols-2">
-        <img
-          id="qv-img-1"
-          class="aspect-[16/9] w-full rounded-xl border border-white/10 object-cover bg-black/30"
-          alt="Preview screenshot 1"
-          onerror="this.onerror=null;this.src='/images/placeholder.svg';"
-        />
-        <img
-          id="qv-img-2"
-          class="aspect-[16/9] w-full rounded-xl border border-white/10 object-cover bg-black/30"
-          alt="Preview screenshot 2"
-          onerror="this.onerror=null;this.src='/images/placeholder.svg';"
-        />
+        <img id="qv-img-1" class="aspect-[16/9] w-full rounded-xl border border-white/10 object-cover bg-black/30" alt="Preview screenshot 1" onerror="this.onerror=null;this.src='/images/placeholder.svg';" />
+        <img id="qv-img-2" class="aspect-[16/9] w-full rounded-xl border border-white/10 object-cover bg-black/30" alt="Preview screenshot 2" onerror="this.onerror=null;this.src='/images/placeholder.svg';" />
       </div>
-
       <div class="mt-6 flex flex-wrap gap-3">
-        <a
-          id="qv-case"
-          class="rounded-lg bg-sky-400 px-4 py-2 text-sm font-semibold text-slate-950 hover:opacity-90"
-          href="#"
-        >
-          Open case study
-        </a>
-
-        <a
-          id="qv-github"
-          class="rounded-lg border border-white/10 px-4 py-2 text-sm text-slate-100 hover:bg-white/5"
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          View on GitHub
-        </a>
+        <a id="qv-case" class="rounded-lg bg-sky-400 px-4 py-2 text-sm font-semibold text-slate-950 hover:opacity-90" href="#">Open case study</a>
+        <a id="qv-github" class="rounded-lg border border-white/10 px-4 py-2 text-sm text-slate-100 hover:bg-white/5" href="#" target="_blank" rel="noopener noreferrer">View on GitHub</a>
       </div>
     </div>
   </dialog>
 
+
+  <!-- ══════════════════════════════════════════════
+       SCRIPTS
+  ══════════════════════════════════════════════ -->
   <script is:inline define:vars={{ previewData }}>
     const data = previewData;
-
     const dlg = document.getElementById("quickview");
     const closeBtn = document.getElementById("qv-close");
-
     const metaEl = document.getElementById("qv-meta");
     const titleEl = document.getElementById("qv-title");
     const descEl = document.getElementById("qv-desc");
-
     const img1 = document.getElementById("qv-img-1");
     const img2 = document.getElementById("qv-img-2");
-
     const caseLink = document.getElementById("qv-case");
     const githubLink = document.getElementById("qv-github");
 
     function openPreview(slug) {
       const p = data[slug];
       if (!p) return;
-
-      metaEl.textContent = `${p.category} • ${p.dataset}`;
+      metaEl.textContent = `${p.category} · ${p.dataset}`;
       titleEl.textContent = p.title;
       descEl.textContent = p.oneLiner;
-
-      const shots = (p.screenshots && p.screenshots.length ? p.screenshots : [p.coverImage]).slice(0, 2);
+      const shots = (p.screenshots?.length ? p.screenshots : [p.coverImage]).slice(0, 2);
       img1.src = shots[0] || "/images/placeholder.svg";
       img2.src = shots[1] || shots[0] || "/images/placeholder.svg";
-
       caseLink.href = `/projects/${p.slug}`;
       githubLink.href = p.repoUrl || "#";
-
       dlg.showModal();
     }
 
     document.querySelectorAll("[data-preview-slug]").forEach((btn) => {
       btn.addEventListener("click", () => openPreview(btn.getAttribute("data-preview-slug")));
     });
-
     closeBtn?.addEventListener("click", () => dlg.close());
-
     dlg?.addEventListener("click", (e) => {
       const rect = dlg.getBoundingClientRect();
-      const inDialog =
-        rect.top <= e.clientY && e.clientY <= rect.bottom && rect.left <= e.clientX && e.clientX <= rect.right;
+      const inDialog = rect.top <= e.clientY && e.clientY <= rect.bottom && rect.left <= e.clientX && e.clientX <= rect.right;
       if (!inDialog) dlg.close();
     });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && dlg?.open) dlg.close();
-    });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && dlg?.open) dlg.close(); });
   </script>
 
   <script>
-    const counters = document.querySelectorAll(".stat");
-
-    const runCounter = (counter) => {
-      const target = +counter.getAttribute("data-target");
-      let count = 0;
-
-      const update = () => {
-        const increment = target / 60;
-
-        if (count < target) {
-          count += increment;
-          counter.innerText = Math.floor(count);
-          requestAnimationFrame(update);
-        } else {
-          counter.innerText = formatNumber(target);
-        }
-      };
-
-      update();
-    };
-
-    const formatNumber = (num) => {
+    // Animated counters
+    const formatNumber = (num: number) => {
       if (num >= 1000000) return (num / 1000000).toFixed(2) + "M";
       if (num >= 1000) return (num / 1000).toFixed(1) + "K";
       return num + "+";
+    };
+
+    const runCounter = (counter: Element) => {
+      const target = +(counter.getAttribute("data-target") ?? 0);
+      let count = 0;
+      const update = () => {
+        const increment = target / 60;
+        if (count < target) {
+          count += increment;
+          (counter as HTMLElement).innerText = Math.floor(count).toString();
+          requestAnimationFrame(update);
+        } else {
+          (counter as HTMLElement).innerText = formatNumber(target);
+        }
+      };
+      update();
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -1031,7 +560,7 @@ const previewData = Object.fromEntries(
       });
     });
 
-    counters.forEach((counter) => observer.observe(counter));
+    document.querySelectorAll(".stat").forEach((counter) => observer.observe(counter));
   </script>
 
 </Layout>
