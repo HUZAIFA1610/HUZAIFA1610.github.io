@@ -5,11 +5,9 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://HUZAIFA1610.github.io',
-
+  site: 'https://huzaifa1610.github.io',
+  integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
   },
-
-  integrations: [sitemap()],
 });
